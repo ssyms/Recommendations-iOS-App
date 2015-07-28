@@ -1,0 +1,15 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+target 'Recommendations' do
+	pod 'RealmSwift'
+	use_frameworks!
+end
+
+target 'RecommendationsTests' do
+pod 'RealmSwift'
+        use_frameworks!
+
+
+end
+
