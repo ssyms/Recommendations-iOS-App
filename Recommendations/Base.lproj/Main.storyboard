@@ -80,7 +80,7 @@
         <!--Add Venue-->
         <scene sceneID="zkJ-HH-u0Z">
             <objects>
-                <tableViewController id="2bh-k9-Ht8" sceneMemberID="viewController">
+                <tableViewController id="2bh-k9-Ht8" customClass="SearchTableViewController" customModule="Recommendations" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="cYE-cn-OfW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +94,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="tYY-u2-m82" customClass="SearchTableViewCell" customModule="Recommendations" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" id="tYY-u2-m82" customClass="SearchTableViewCell" customModule="Recommendations" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tYY-u2-m82" id="8dZ-SU-aT6">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -160,6 +160,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="searchBar" destination="4NJ-23-pyp" id="ZSk-QN-c3z"/>
+                        <outlet property="searchTableView" destination="cYE-cn-OfW" id="RIX-B9-biN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IO1-YF-nhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Xde-iF-qqv" userLabel="Exit" sceneMemberID="exit"/>

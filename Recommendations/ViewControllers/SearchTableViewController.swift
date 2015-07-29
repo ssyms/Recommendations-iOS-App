@@ -18,19 +18,27 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
     
-    @IBOutlet weak var searchTableView: UITableView!
-    
+    @IBOutlet var searchTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     
+    var venues: [Venue]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        venues = [Venue]()
+        let api = FourSquareAPI()
+        api.searchVenues(didSearchVenues)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func didSearchVenues(venues: [Venue]){
+        self.venues = venues
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,11 +54,32 @@ class SearchTableViewController: UITableViewController {
         return 0
     }
     
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
+            let venue = venues[indexPath.row]
+            //cell.venueLabel.text = venue.name
+            cell.venueLabel.text = "Fake Venue"
+            cell.locationLabel.text = "SF"
+            cell.priceLabel.text = "$$$"
+            cell.typeLabel.text = "Desert"
+    /*let row = indexPath.row
+    let post = posts[row] as Post
+    cell.post = post*/
+    
+            return cell
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 5//venues.count
+    
+    }
+
+    
+    /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return 0
-    }
+    }*/
     
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
