@@ -20,6 +20,12 @@ class PostsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func unwindToSegue(segue: UIStoryboardSegue) {
+        
+        if let identifier = segue.identifier {
+            println("Identifier \(identifier)")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +145,6 @@ extension PostsTableViewController: UITableViewDataSource {
         return Int(posts?.count ?? 0)
         
     }
-
-
+    
+    
 }

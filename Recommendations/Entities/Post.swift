@@ -16,6 +16,7 @@ class Post: Object {
     dynamic var location: String = ""
     dynamic var type: String = ""
     dynamic var price: String = ""
+    //dynamic var content: String = ""
     //dynamic var image
    
 }

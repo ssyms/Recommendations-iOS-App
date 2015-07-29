@@ -18,6 +18,9 @@
 		7B046C321B68283D00CC716A /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B046C311B68283D00CC716A /* PostTableViewCell.swift */; };
 		7B046C3B1B682CC800CC716A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B046C3A1B682CC800CC716A /* Post.swift */; };
 		7B29B0071B683CED002E8AEC /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B29B0061B683CED002E8AEC /* SearchTableViewController.swift */; };
+		7B426B671B68934700DBA451 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426B661B68934700DBA451 /* SearchTableViewCell.swift */; };
+		7B426B6A1B69505500DBA451 /* FourSquareAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426B691B69505500DBA451 /* FourSquareAPI.swift */; };
+		7B426B6C1B695B3400DBA451 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B426B6B1B695B3400DBA451 /* Venue.swift */; };
 		FE732EB5766CAD98A0854D24 /* Pods_Recommendations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048C71BDA539C2813A2F76F2 /* Pods_Recommendations.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -49,6 +52,9 @@
 		7B046C311B68283D00CC716A /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostTableViewCell.swift; path = Views/PostTableViewCell.swift; sourceTree = "<group>"; };
 		7B046C3A1B682CC800CC716A /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Entities/Post.swift; sourceTree = "<group>"; };
 		7B29B0061B683CED002E8AEC /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTableViewController.swift; path = ViewControllers/SearchTableViewController.swift; sourceTree = "<group>"; };
+		7B426B661B68934700DBA451 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTableViewCell.swift; path = Views/SearchTableViewCell.swift; sourceTree = "<group>"; };
+		7B426B691B69505500DBA451 /* FourSquareAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourSquareAPI.swift; sourceTree = "<group>"; };
+		7B426B6B1B695B3400DBA451 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		82B0AAAC475A4B8E97ECAF3D /* Pods-Recommendations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recommendations.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Recommendations/Pods-Recommendations.debug.xcconfig"; sourceTree = "<group>"; };
 		BB1C962E4D9B8724E532658F /* Pods-Recommendations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recommendations.release.xcconfig"; path = "Pods/Target Support Files/Pods-Recommendations/Pods-Recommendations.release.xcconfig"; sourceTree = "<group>"; };
 		BD40FDF27A80B6FD5EB22BEB /* Pods-RecommendationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecommendationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RecommendationsTests/Pods-RecommendationsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,6 +112,7 @@
 		7B046BD61B68231000CC716A /* Recommendations */ = {
 			isa = PBXGroup;
 			children = (
+				7B426B681B69503000DBA451 /* FourSqaureAPI */,
 				7B046C391B682CA300CC716A /* Entities */,
 				7B046C301B68280C00CC716A /* Views */,
 				7B046BFB1B68245400CC716A /* ViewControllers */,
@@ -157,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				7B046C311B68283D00CC716A /* PostTableViewCell.swift */,
+				7B426B661B68934700DBA451 /* SearchTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -167,6 +175,15 @@
 				7B046C3A1B682CC800CC716A /* Post.swift */,
 			);
 			name = Entities;
+			sourceTree = "<group>";
+		};
+		7B426B681B69503000DBA451 /* FourSqaureAPI */ = {
+			isa = PBXGroup;
+			children = (
+				7B426B691B69505500DBA451 /* FourSquareAPI.swift */,
+				7B426B6B1B695B3400DBA451 /* Venue.swift */,
+			);
+			name = FourSqaureAPI;
 			sourceTree = "<group>";
 		};
 		A8BC2414F75DCDBC9D0CCB53 /* Pods */ = {
@@ -383,8 +400,11 @@
 				7B29B0071B683CED002E8AEC /* SearchTableViewController.swift in Sources */,
 				7B046C2F1B6827F700CC716A /* PostsTableViewController.swift in Sources */,
 				7B046BDA1B68231000CC716A /* AppDelegate.swift in Sources */,
+				7B426B6C1B695B3400DBA451 /* Venue.swift in Sources */,
 				7B046C321B68283D00CC716A /* PostTableViewCell.swift in Sources */,
+				7B426B6A1B69505500DBA451 /* FourSquareAPI.swift in Sources */,
 				7B046C3B1B682CC800CC716A /* Post.swift in Sources */,
+				7B426B671B68934700DBA451 /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
