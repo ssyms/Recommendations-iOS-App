@@ -29,7 +29,7 @@ class PostsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
+        myTableView.dataSource = self
         
         let aPost = Post()
         aPost.venue   = "The Market"
@@ -132,7 +132,7 @@ class PostsTableViewController: UITableViewController {
 extension PostsTableViewController: UITableViewDataSource {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell //1
+        let cell = myTableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell //1
         
         let row = indexPath.row
         let post = posts[row] as Post

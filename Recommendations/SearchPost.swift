@@ -10,7 +10,7 @@
 import UIKit
 import RealmSwift
 
-class Post: Object {
+class SearchPost: Object {
     
     dynamic var venue: String = ""
     dynamic var location: String = ""
@@ -18,5 +18,5 @@ class Post: Object {
     dynamic var price: String = ""
     //dynamic var content: String = ""
     //dynamic var image
-   
+    
 }

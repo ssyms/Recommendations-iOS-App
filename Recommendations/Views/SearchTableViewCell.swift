@@ -17,9 +17,10 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     
-    @IBAction func addButtonTapped (sender: AnyObject) {
     
-    }
+//    @IBAction func addButtonTapped (sender: AnyObject) {
+        
+ //   }
     
     let api = FourSquareAPI()
     
@@ -27,11 +28,11 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

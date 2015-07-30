@@ -37,7 +37,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cap-pM-On4">
-                                            <rect key="frame" x="119" y="18" width="42" height="21"/>
+                                            <rect key="frame" x="119" y="17" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -62,20 +62,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Lists" id="3oI-Ug-VPF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="o4L-Ej-3fv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cqW-cY-dBm">
                             <connections>
-                                <segue destination="2bh-k9-Ht8" kind="show" id="i1U-TF-FAi"/>
+                                <segue destination="2bh-k9-Ht8" kind="show" id="xGy-Vy-CdE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="myTableView" destination="5ka-mH-eSX" id="kD1-qb-TtY"/>
-                        <segue destination="2bh-k9-Ht8" kind="show" id="BVH-Be-Zdl"/>
+                        <segue destination="lY9-5d-1v7" kind="show" id="yhx-ec-fpc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HtV-1F-kXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="954" y="-96"/>
+            <point key="canvasLocation" x="576" y="-8"/>
         </scene>
         <!--Add Venue-->
         <scene sceneID="zkJ-HH-u0Z">
@@ -85,14 +85,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="4NJ-23-pyp">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="2bh-k9-Ht8" id="yPj-hB-ORF"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" id="tYY-u2-m82" customClass="SearchTableViewCell" customModule="Recommendations" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -161,14 +153,13 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchBar" destination="4NJ-23-pyp" id="ZSk-QN-c3z"/>
                         <outlet property="searchTableView" destination="cYE-cn-OfW" id="RIX-B9-biN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IO1-YF-nhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Xde-iF-qqv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1573" y="-96"/>
+            <point key="canvasLocation" x="1255" y="28"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oqD-5d-sGo">
@@ -184,7 +175,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHq-4Y-naX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-48" y="-96"/>
+            <point key="canvasLocation" x="-96" y="-8"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Bl5-32-YiE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lY9-5d-1v7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Did-yj-sDY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2bh-k9-Ht8" kind="relationship" relationship="rootViewController" id="Rhf-7f-5dc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XCn-xf-hdh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1343" y="-872"/>
         </scene>
     </scenes>
     <resources>
@@ -192,6 +201,6 @@
         <image name="PlusUnfilled" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BVH-Be-Zdl"/>
+        <segue reference="xGy-Vy-CdE"/>
     </inferredMetricsTieBreakers>
 </document>

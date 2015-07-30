@@ -13,19 +13,22 @@
 //  Created by Sarada Symonds on 7/28/15.
 //  Copyright (c) 2015 Sarada Symonds. All rights reserved.
 //
-
+import Foundation
 import UIKit
 
-class SearchTableViewController: UITableViewController {
+class SearchTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
     
     
     var venues: [Venue]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
         venues = [Venue]()
         let api = FourSquareAPI()
         api.searchVenues(didSearchVenues)
@@ -36,10 +39,12 @@ class SearchTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    func didSearchVenues(venues: [Venue]){
+   func didSearchVenues(venues: [Venue]){
         self.venues = venues
         tableView.reloadData()
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,30 +60,45 @@ class SearchTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
-            let venue = venues[indexPath.row]
-            //cell.venueLabel.text = venue.name
+        let cell = searchTableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
+        //let venue = venues[indexPath.row]
+        cell.venueLabel!.text = "Venue" //venue.name
+        return cell
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5//venues.count
+        
+    }
+    
+}
+
+/*extension SearchTableViewController: UITableViewDataSource {
+        
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let cell = searchTableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
+            
+            let row = indexPath.row
             cell.venueLabel.text = "Fake Venue"
             cell.locationLabel.text = "SF"
             cell.priceLabel.text = "$$$"
             cell.typeLabel.text = "Desert"
-    /*let row = indexPath.row
-    let post = posts[row] as Post
-    cell.post = post*/
-    
+            
             return cell
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5//venues.count
-    
-    }
+        }
+        
+        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 5
+            
+        }
+        
+        
+}*/
 
-    
     /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+    // #warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0
     }*/
     
     /*
@@ -132,4 +152,3 @@ class SearchTableViewController: UITableViewController {
     }
     */
     
-}

@@ -13,32 +13,41 @@ class FourSquareAPI {
     let CLIENT_SECRET = "YAYW3VGX04GSK0Z0B5WSYWOFIR21WBBOJ2TIUI1COQUO4UM5"
     
     func searchVenues (completion: (([Venue]) -> Void)!) {
-        var urlString = "https://api.foursquare.com/v2/venues/explore?ll=40.7,-74&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
         
         var task = session.dataTaskWithURL(searchURL!){
-            (NSData, NSResponse, err: NSError!) -> Void in
+            (data, NSResponse, err: NSError!) -> Void in
             
             if err != nil {
                 println(err.localizedDescription)
             } else {
                 var err: NSError?
-                var venuesData = NSJSONSerialization.JSONObjectWithData(NSData, options: nil, error: &err) as! NSDictionary
-                var venues = [Venue]()
-                println(venuesData)
-                
-                //for venue in venuesData{
-                    //let venue = Venue(data: venue as NSDictionary)
-                    //(data: venue as! NSDictionary)
-                    //venues.append(venue as NSDictionary)
-                //}
-                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-                dispatch_async(dispatch_get_global_queue(priority, 0)){
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(venues)
-                    }
+                if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
+                    if let array = jsonObject as? NSArray {
+                        println(array)
+                        println("not an array")
+                        var venues = [Venue]()
+                        
+                        for venue in array{
+                            let venue = Venue(data: venue as! NSDictionary)
+                            //(data: venue as! NSDictionary)
+                            venues.append(venue)
+                        }
+                        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                        dispatch_async(dispatch_get_global_queue(priority, 0)){
+                            dispatch_async(dispatch_get_main_queue()){
+                                completion(venues)
+                            }
+                        }
+
+                    } else {
+                                            }
+                } else {
+                    println("Could not parse JSON: \(err!)")
                 }
+                
             }
         }
         task.resume()
