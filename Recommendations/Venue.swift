@@ -28,9 +28,9 @@ class Venue{
 
     */
     
-    init(data: NSDictionary){
-        self.id = getStringFromJSON(data, key: "id")
-        self.name = getStringFromJSON(data, key: "name")
+    init(data: AnyObject){
+        self.id = getStringFromJSON(data as! NSDictionary, key: "id")
+        self.name = getStringFromJSON(data as! NSDictionary, key: "name")
     }
     
     func getStringFromJSON(data:NSDictionary, key: String) -> String{

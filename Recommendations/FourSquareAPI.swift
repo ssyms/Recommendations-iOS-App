@@ -13,6 +13,7 @@ class FourSquareAPI {
     let CLIENT_SECRET = "YAYW3VGX04GSK0Z0B5WSYWOFIR21WBBOJ2TIUI1COQUO4UM5"
     
     func searchVenues (completion: (([Venue]) -> Void)!) {
+        println("searchVenues active")
         var urlString = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
@@ -23,17 +24,31 @@ class FourSquareAPI {
             if err != nil {
                 println(err.localizedDescription)
             } else {
+                println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
-                    if let array = jsonObject as? NSArray {
-                        println(array)
-                        println("not an array")
+                    println("jsonObject here")
+                    if let dict = jsonObject as? NSDictionary {
+                        println("json object is a dictionary")
+                        //println(dict)
                         var venues = [Venue]()
                         
-                        for venue in array{
-                            let venue = Venue(data: venue as! NSDictionary)
-                            //(data: venue as! NSDictionary)
-                            venues.append(venue)
+                        for venue in dict{
+                            println("1")
+                            
+                            
+                            //print(venue)
+                            if let venue = Venue(data: (venue as? AnyObject)!){
+                                print("2")
+                            }
+                            
+                            /*if let venue = Venue(data) as? AnyObject){
+                                venues.append(venue)
+                            }
+                            else{
+                                println("not dict")
+                            }
+                            venues.append(venue)*/
                         }
                         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                         dispatch_async(dispatch_get_global_queue(priority, 0)){
