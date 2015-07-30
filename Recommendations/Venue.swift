@@ -29,15 +29,15 @@ class Venue{
     */
     
     
-    init(data: (String, String)){
+    init(data: (AnyObject, AnyObject)){
         self.id = getStringFromJSON(data, key: "id")
         self.name = getStringFromJSON(data, key: "name")
     }
     
-    func getStringFromJSON(data: (String, String), key: String) -> String{
-        let (check, value) = data
-        if check == key {
-                return value
+    func getStringFromJSON(data: (AnyObject, AnyObject), key: String) -> String{
+        let (check: AnyObject, value: AnyObject) = data
+        if check as! String == key {
+                return value as! String
             }
         return ""
     }

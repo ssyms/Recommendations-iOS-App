@@ -34,7 +34,7 @@ class FourSquareAPI {
                         var venues = [Venue]()
                         //println(dict)
                         for (key, value) in dict{
-                            let venue = Venue(data: ("name", "yum"))
+                            let venue = Venue(data: (key as AnyObject, value as AnyObject))
                             // if let venue = (key, value) as? {
                              //   println("venue is a tuple")
                             //}
