@@ -129,7 +129,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addButton" destination="HxN-81-OCp" id="Ikv-hm-ZJu"/>
-                                    <outlet property="addVenue" destination="HxN-81-OCp" id="dhf-b3-F8g"/>
                                     <outlet property="locationLabel" destination="fuq-1F-gjJ" id="Yno-yv-pAA"/>
                                     <outlet property="priceLabel" destination="CnI-US-inL" id="6pp-Wm-Wc4"/>
                                     <outlet property="typeLabel" destination="ywB-a5-7vw" id="z1G-TI-CPy"/>
@@ -152,9 +151,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="searchTableView" destination="cYE-cn-OfW" id="RIX-B9-biN"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IO1-YF-nhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Xde-iF-qqv" userLabel="Exit" sceneMemberID="exit"/>

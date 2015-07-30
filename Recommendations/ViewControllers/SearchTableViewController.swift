@@ -16,9 +16,8 @@
 import Foundation
 import UIKit
 
-class SearchTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    @IBOutlet var searchTableView: UITableView!
+class SearchTableViewController: UITableViewController {
+
     @IBOutlet weak var searchBar: UISearchBar!
     
     
@@ -27,8 +26,6 @@ class SearchTableViewController: UITableViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
         venues = [Venue]()
         let api = FourSquareAPI()
         api.searchVenues(didSearchVenues)
@@ -56,18 +53,18 @@ class SearchTableViewController: UITableViewController, UITableViewDelegate, UIT
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = searchTableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
-        //let venue = venues[indexPath.row]
-        cell.venueLabel!.text = "Venue" //venue.name
+        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
+        let venue = venues[indexPath.row]
+        cell.venueLabel!.text = venue.name
         return cell
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5//venues.count
+        return venues.count
         
     }
     

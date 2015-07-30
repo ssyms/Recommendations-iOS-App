@@ -29,16 +29,15 @@ class Venue{
     */
     
     
-    init(data: (AnyObject, AnyObject)){
-        self.id = getStringFromJSON(data, key: "id")
-        self.name = getStringFromJSON(data, key: "name")
+    init(data: [String: AnyObject]){
+        self.id = data["id"] as? String
+        self.name = data["name"] as? String
     }
     
-    func getStringFromJSON(data: (AnyObject, AnyObject), key: String) -> String{
-        let (check: AnyObject, value: AnyObject) = data
-        if check as! String == key {
-                return value as! String
-            }
+    func getStringFromJSON(data: NSDictionary, key: String) -> String{
+        if let info = data[key] as? String {
+            return info
+        }
         return ""
     }
 }

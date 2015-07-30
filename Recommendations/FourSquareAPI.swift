@@ -28,27 +28,30 @@ class FourSquareAPI {
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
                     println("jsonObject here")
-                    if let dict = jsonObject as? NSDictionary {
-                        println("json object is a dictionary")
-                        //println(dict)
-                        var venues = [Venue]()
-                        //println(dict)
-                        for (key, value) in dict{
-                            let venue = Venue(data: (key as AnyObject, value as AnyObject))
-                            venues.append(venue)
-                        
-                        }
-                        
-                        println(venues[1].name)
-                        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-                        dispatch_async(dispatch_get_global_queue(priority, 0)){
-                            dispatch_async(dispatch_get_main_queue()){
-                                completion(venues)
+                    var venues = [Venue]()
+                    if let dict = jsonObject as? [String: AnyObject] {
+                        if let response = dict["response"] as? [String: AnyObject] {
+                            if let venuesData = response["venues"] as? [[String: AnyObject]] {
+                                
+                                for venueData in venuesData {
+                                    let venue = Venue(data: venueData)
+                                    println(venue)
+                                    venues.append(venue)
+                                }
+                                
+                                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                                dispatch_async(dispatch_get_global_queue(priority, 0)){
+                                    dispatch_async(dispatch_get_main_queue()){
+                                        completion(venues)
+                                    }
+                                }
                             }
                         }
+                        
 
                     } else {
-                                            }
+                        
+                    }
                 } else {
                     println("Could not parse JSON: \(err!)")
                 }
