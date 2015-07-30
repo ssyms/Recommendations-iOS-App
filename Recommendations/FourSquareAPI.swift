@@ -35,14 +35,11 @@ class FourSquareAPI {
                         //println(dict)
                         for (key, value) in dict{
                             let venue = Venue(data: (key as AnyObject, value as AnyObject))
-                            // if let venue = (key, value) as? {
-                             //   println("venue is a tuple")
-                            //}
-                            //let venue = Venue(data: (key as! String, value as! String))
                             venues.append(venue)
-                            println(venues)
                         
                         }
+                        
+                        println(venues[1].name)
                         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                         dispatch_async(dispatch_get_global_queue(priority, 0)){
                             dispatch_async(dispatch_get_main_queue()){
