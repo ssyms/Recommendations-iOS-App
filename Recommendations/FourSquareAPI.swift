@@ -32,23 +32,16 @@ class FourSquareAPI {
                         println("json object is a dictionary")
                         //println(dict)
                         var venues = [Venue]()
+                        //println(dict)
+                        for (key, value) in dict{
+                            let venue = Venue(data: ("name", "yum"))
+                            // if let venue = (key, value) as? {
+                             //   println("venue is a tuple")
+                            //}
+                            //let venue = Venue(data: (key as! String, value as! String))
+                            venues.append(venue)
+                            println(venues)
                         
-                        for venue in dict{
-                            println("1")
-                            
-                            
-                            //print(venue)
-                            if let venue = Venue(data: (venue as? AnyObject)!){
-                                print("2")
-                            }
-                            
-                            /*if let venue = Venue(data) as? AnyObject){
-                                venues.append(venue)
-                            }
-                            else{
-                                println("not dict")
-                            }
-                            venues.append(venue)*/
                         }
                         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                         dispatch_async(dispatch_get_global_queue(priority, 0)){
