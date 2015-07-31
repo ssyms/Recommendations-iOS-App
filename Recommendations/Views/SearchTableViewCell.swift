@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol SearchTableViewCellDelegate: class {
+    func cell(cell: SearchTableViewCell, didSelectAddVenue venue: Venue)
+    func cell(cell: SearchTableViewCell, didSelectUnAddVenue venue: Venue)
+}
+
 class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var venueLabel: UILabel!
@@ -16,11 +21,39 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
+    weak var delegate: SearchTableViewCellDelegate?
+
+    
+    var venue: Venue? {
+        didSet {
+            venueLabel.text = venue?.name
+        }
+    }
+    
+    var canAdd: Bool? = true {
+        didSet {
+            /*
+            Change the state of the follow button based on whether or not
+            it is possible to follow a user.
+            */
+            if let canAdd = canAdd {
+                addButton.selected = !canAdd
+            }
+        }
+    }
     
     
-//    @IBAction func addButtonTapped (sender: AnyObject) {
-        
- //   }
+    @IBAction func addButtonTapped(sender: AnyObject) {
+        if let canAdd = canAdd where canAdd == true {
+            delegate?.cell(self, didSelectAddVenue: venue!)
+            self.canAdd = false
+        } else {
+            delegate?.cell(self, didSelectUnAddVenue: venue!)
+            self.canAdd = true
+        }
+    }
+
+    
     
     let api = FourSquareAPI()
     

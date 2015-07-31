@@ -62,4 +62,57 @@ class FourSquareAPI {
         
     }
     
+    
+    func searchVenuesWithQuery (completion: (([Venue]) -> Void)!, query: String) {
+        println("searchVenuesWithQuery active")
+        let urlQuery = query.stringByReplacingOccurrencesOfString(" ", withString: "_")
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
+        let session = NSURLSession.sharedSession()
+        let searchURL = NSURL(string: urlString)
+        
+        var task = session.dataTaskWithURL(searchURL!){
+            (data, NSResponse, err: NSError!) -> Void in
+            
+            if err != nil {
+                println(err.localizedDescription)
+            } else {
+                println("error is nil")
+                var err: NSError?
+                if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
+                    println("jsonObject here")
+                    var venues = [Venue]()
+                    if let dict = jsonObject as? [String: AnyObject] {
+                        if let response = dict["response"] as? [String: AnyObject] {
+                            //println(response)
+                            if let venuesData = response["venues"] as? [[String: AnyObject]] {
+                                
+                                for venueData in venuesData {
+                                    let venue = Venue(data: venueData)
+                                    venues.append(venue)
+                                }
+                                
+                                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                                dispatch_async(dispatch_get_global_queue(priority, 0)){
+                                    dispatch_async(dispatch_get_main_queue()){
+                                        completion(venues)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        
+                    } else {
+                        
+                    }
+                } else {
+                    println("Could not parse JSON: \(err!)")
+                }
+                
+            }
+        }
+        task.resume()
+        
+    }
+
+    
 }

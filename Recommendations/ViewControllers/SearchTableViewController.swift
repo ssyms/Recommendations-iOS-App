@@ -21,8 +21,39 @@ class SearchTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     
-    
     var venues: [Venue]!
+    
+    
+    var AddedVenues: [Venue]? {
+        didSet {
+            /**
+            the list of following users may be fetched after the tableView has displayed
+            cells. In this case, we reload the data to reflect "following" status
+            */
+            tableView.reloadData()
+        }
+    }
+
+
+    enum State {
+        case DefaultMode
+        case SearchMode
+    }
+
+    
+    // whenever the state changes, perform one of the two queries and update the list
+    var state: State = .DefaultMode {
+        didSet {
+            switch (state) {
+            case .DefaultMode:
+                viewDidLoad()
+                
+            case .SearchMode:
+                searchView()
+                }
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +71,17 @@ class SearchTableViewController: UITableViewController {
         self.venues = venues
         tableView.reloadData()
     }
+        
+    func searchView(){
+        super.viewDidLoad()
+        let searchText = searchBar?.text ?? ""
+        venues = [Venue]()
+        let api = FourSquareAPI()
+        api.searchVenuesWithQuery(didSearchVenues, query: searchText)
+        
+    }
+
+    
     
     
     
@@ -73,6 +115,28 @@ class SearchTableViewController: UITableViewController {
     }
     
 }
+
+extension SearchTableViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+        state = .SearchMode
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        searchBar.setShowsCancelButton(false, animated: true)
+        state = .DefaultMode
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        let api = FourSquareAPI()
+        api.searchVenuesWithQuery(didSearchVenues, query: searchText)
+    }
+    
+}
+
 
 /*extension SearchTableViewController: UITableViewDataSource {
         
