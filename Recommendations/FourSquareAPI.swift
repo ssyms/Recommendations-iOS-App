@@ -14,7 +14,7 @@ class FourSquareAPI {
     
     func searchVenues (completion: (([Venue]) -> Void)!) {
         println("searchVenues active")
-        var urlString = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
         
@@ -31,11 +31,11 @@ class FourSquareAPI {
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
+                            //println(response)
                             if let venuesData = response["venues"] as? [[String: AnyObject]] {
                                 
                                 for venueData in venuesData {
                                     let venue = Venue(data: venueData)
-                                    println(venue)
                                     venues.append(venue)
                                 }
                                 

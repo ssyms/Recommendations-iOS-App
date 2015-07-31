@@ -60,6 +60,10 @@ class SearchTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
         let venue = venues[indexPath.row]
         cell.venueLabel!.text = venue.name
+        cell.locationLabel!.text = venue.city + ", " + venue.state
+        cell.typeLabel!.text = venue.category
+        cell.priceLabel!.text = venue.priceTier
+        
         return cell
     }
 

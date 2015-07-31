@@ -12,19 +12,19 @@ class Venue{
     
     var id: String!
     var name: String!
-    //var contacts: NSObject!
-    //var location: String!
-    //var categories: String!
+    var address: String!
+    var cc: String!
+    var country: String!
+    var city: String!
+    var state: String!
+    var category: String!
+    var priceTier: String!
+    
     /*
-    var verified: String!
-    var stats: String!
-    var url: String!
     var hours: String!
     var price: String!
     var rating: String!
     var description: String!
-    var photos: NSObject!
-    
 
     */
     
@@ -32,12 +32,31 @@ class Venue{
     init(data: [String: AnyObject]){
         self.id = data["id"] as? String
         self.name = data["name"] as? String
+        self.address = getStringFromDict(data, key: "location", key2: "address")
+        self.cc = getStringFromDict(data, key: "location", key2: "cc")
+        self.country = getStringFromDict(data, key: "location", key2: "country")
+        self.city = getStringFromDict(data, key: "location", key2: "city")
+        self.state = getStringFromDict(data, key: "location", key2: "state")
+        self.priceTier = getStringFromDict(data, key: "price", key2: "tier")
+        self.category = getStringFromDict(data, key: "categories", key2: "name")
+        accessCat(data, key: "categories")
     }
-    
-    func getStringFromJSON(data: NSDictionary, key: String) -> String{
-        if let info = data[key] as? String {
-            return info
+    func accessCat(data: NSDictionary, key: String) -> Void{
+        if let newData: AnyObject = data[key]{
+            println(newData)
         }
-        return ""
+
+    }
+
+    func getStringFromDict(data: NSDictionary, key: String, key2: String) -> String{
+        if let newData: AnyObject = data[key]{
+            if let info = newData[key2] as? String {
+                return info
+            } else {
+                return ""
+            }
+            }else{
+            return ""
+        }
     }
 }
