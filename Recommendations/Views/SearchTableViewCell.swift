@@ -47,15 +47,18 @@ class SearchTableViewCell: UITableViewCell {
         if let canAdd = canAdd where canAdd == true {
             delegate?.cell(self, didSelectAddVenue: venue!)
             self.canAdd = false
+            /*let source = segue.sourceViewController as! SearchTableViewController //1
+            
+            realm.write() {
+                realm.add(source.currentNote!)
+            } */
         } else {
             delegate?.cell(self, didSelectUnAddVenue: venue!)
             self.canAdd = true
         }
     }
 
-    
-    
-    let api = FourSquareAPI()
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
