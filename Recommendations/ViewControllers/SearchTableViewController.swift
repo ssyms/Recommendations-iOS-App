@@ -15,6 +15,7 @@
 //
 import Foundation
 import UIKit
+import RealmSwift
 
 class SearchTableViewController: UITableViewController {
 
@@ -105,7 +106,8 @@ class SearchTableViewController: UITableViewController {
         cell.locationLabel!.text = venue.city + ", " + venue.state
         cell.typeLabel!.text = venue.category
         cell.priceLabel!.text = venue.priceTier
-        
+        cell.venue = venue
+        cell.delegate = self
         return cell
     }
 
@@ -137,6 +139,43 @@ extension SearchTableViewController: UISearchBarDelegate {
     
 }
 
+extension SearchTableViewController: SearchTableViewCellDelegate {
+    
+    func cell(cell: SearchTableViewCell, didSelectAddVenue: Venue) {
+        println("delegate working")
+        println(cell.venueLabel.text)
+        let addedPost = Post()
+        addedPost.venue   = cell.venueLabel.text!
+        addedPost.location = cell.locationLabel.text!
+        addedPost.type = cell.priceLabel.text!
+        addedPost.price = cell.typeLabel.text!
+        
+        let realm = Realm()
+        realm.write( ) { // 2
+            realm.add(addedPost) // 3
+            println("added to realm)")
+        }
+
+        //cell.venueLabel!.text = venue.name
+        //cell.locationLabel!.text = venue.city + ", " + venue.state
+        //cell.typeLabel!.text = venue.category
+        //cell.priceLabel!.text = venue.priceTier
+    
+        //currentPost = cell.currentCell!
+        
+    }
+    
+    func cell(cell: SearchTableViewCell, didSelectUnAddVenue: Venue) {
+        
+        /*if var followingUsers = followingUsers {
+            ParseHelper.removeFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user)
+            // update local cache
+            removeObject(user, fromArray: &followingUsers)
+            self.followingUsers = followingUsers
+        }*/
+    }
+    
+}
 
 /*extension SearchTableViewController: UITableViewDataSource {
         

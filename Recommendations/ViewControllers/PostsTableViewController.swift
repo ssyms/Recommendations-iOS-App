@@ -22,7 +22,22 @@ class PostsTableViewController: UITableViewController {
     @IBAction func unwindToSegue(segue: UIStoryboardSegue) {
         
         if let identifier = segue.identifier {
-            println("Identifier \(identifier)")
+            let realm = Realm()
+            println("No one loves \(identifier)")
+            switch identifier {
+                case "Done":
+                    println("No one loves \(identifier)")
+                    posts = realm.objects(Post).sorted("venue", ascending: true)
+        
+                default:
+                    println("No one loves \(identifier)")
+            }
+            
+             //2
+           // realm.write() {
+               // realm.add(source.currentPost!)
+          //  }
+
         }
     }
     
@@ -30,17 +45,8 @@ class PostsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         myTableView.dataSource = self
-        
-        let aPost = Post()
-        aPost.venue   = "The Market"
-        aPost.location = "San Francisco, CA"
-        aPost.type = "American"
-        aPost.price = "$$"
-        
         let realm = Realm()
-        realm.write( ) { // 2
-            realm.add(aPost) // 3
-        }
+        posts = realm.objects(Post).sorted("venue", ascending: true)
         
         posts = realm.objects(Post)
         

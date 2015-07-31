@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol SearchTableViewCellDelegate: class {
     func cell(cell: SearchTableViewCell, didSelectAddVenue venue: Venue)
@@ -30,6 +31,19 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
+    var currentCell: Post? {
+        didSet {
+            if let currentCell = currentCell, venueLabel = venueLabel, locationLabel = locationLabel, typeLabel = typeLabel, priceLabel = priceLabel {
+                self.venueLabel.text = currentCell.venue
+                self.locationLabel.text = currentCell.location
+                self.priceLabel.text = currentCell.price
+                self.typeLabel.text = currentCell.type
+            }
+        }
+    }
+    
+    
+    let realm = Realm()
     var canAdd: Bool? = true {
         didSet {
             /*
@@ -47,12 +61,8 @@ class SearchTableViewCell: UITableViewCell {
         if let canAdd = canAdd where canAdd == true {
             delegate?.cell(self, didSelectAddVenue: venue!)
             self.canAdd = false
-            /*let source = segue.sourceViewController as! SearchTableViewController //1
-            
-            realm.write() {
-                realm.add(source.currentNote!)
-            } */
-        } else {
+            println("tapped button working")
+            } else {
             delegate?.cell(self, didSelectUnAddVenue: venue!)
             self.canAdd = true
         }
