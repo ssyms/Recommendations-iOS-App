@@ -73,7 +73,6 @@ class SearchTableViewCell: UITableViewCell {
         if let canAdd = canAdd where canAdd == true {
             delegate?.cell(self, didSelectAddVenue: venue!)
             self.canAdd = false
-            println("tapped button working")
             let addedPost = Post()
             addedPost.venue   = venueLabel.text!
             addedPost.location = locationLabel.text!
@@ -84,8 +83,6 @@ class SearchTableViewCell: UITableViewCell {
             let realm = Realm()
             realm.write( ) { // 2
                 realm.add(addedPost) // 3
-                println("added to realm)")
-                println(addedPost.id)
             }
         } else {
             delegate?.cell(self, didSelectUnAddVenue: venue!)

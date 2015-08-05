@@ -16,14 +16,15 @@
 import Foundation
 import UIKit
 import RealmSwift
+import CoreLocation
 
-class SearchTableViewController: UITableViewController {
+class SearchTableViewController: UITableViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var locManager = CLLocationManager()
     
     var venues: [Venue]!
-    
     
     var AddedVenues: [Venue]? {
         didSet {
@@ -59,8 +60,37 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         venues = [Venue]()
+        locManager.requestWhenInUseAuthorization()
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.startUpdatingLocation()
+        
+        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
+        {
+            if let currentLocation : CLLocation = locManager.location {
+            
+            let latitude = "\(currentLocation.coordinate.latitude)"
+            let longitude = "\(currentLocation.coordinate.longitude)"
+            println(longitude + ", " + latitude)
+            } else {
+                println("nil loc")
+            }
+            
+        } else {
+            println("location not authorized")
+        }
+        
+        
         let api = FourSquareAPI()
         api.searchVenues(didSearchVenues)
+        //var currentLocation = CLLocation!
+        
+        /*if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse){
+                
+                currentLocation = locManager.location
+                
+        }*/
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -68,6 +98,8 @@ class SearchTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+
+
    func didSearchVenues(venues: [Venue]){
         self.venues = venues
         tableView.reloadData()
@@ -149,46 +181,11 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController: SearchTableViewCellDelegate {
     
     func cell(cell: SearchTableViewCell, didSelectAddVenue: Venue) {
-        println("delegate working")
-        println(cell.venueLabel.text)
-        /*let api = FourSquareAPI()
-        venues = [Venue]()
-        let venue = venues[indexPath.row]
-        let addedPost = Post()
-        addedPost.venue   = venue.name
-        addedPost.location = cell.locationLabel.text!
-        addedPost.type = cell.priceLabel.text!
-        addedPost.price = cell.typeLabel.text!
-        
-        let realm = Realm()
-        realm.write( ) { // 2
-            realm.add(addedPost) // 3
-            println("added to realm)")
-        }*/
         
     }
     
     func cell(cell: SearchTableViewCell, didSelectUnAddVenue: Venue) {
-        println("deselect working")
-        let realm = Realm()
-        /*var posts = realm.objects(Post)
-        for post in posts{
-            if post.venue == cell.venueLabel.text! && post.location == cell.locationLabel.text! && post.type == cell.priceLabel.text! && post.price == cell.typeLabel.text! {
-                realm.write(){
-                    realm.delete(post)
-                }
-            }*/
-        //}
         
-
-        
-        
-        /*if var followingUsers = followingUsers {
-            ParseHelper.removeFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user)
-            // update local cache
-            removeObject(user, fromArray: &followingUsers)
-            self.followingUsers = followingUsers
-        }*/
     }
     
 }

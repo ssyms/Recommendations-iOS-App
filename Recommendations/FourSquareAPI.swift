@@ -27,11 +27,10 @@ class FourSquareAPI {
                 println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
-                    println("jsonObject here")
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            println(response)
+                            //println(response)
                             if let venuesData = response["venues"] as? [[String: AnyObject]] {
                                 
                                 for venueData in venuesData {

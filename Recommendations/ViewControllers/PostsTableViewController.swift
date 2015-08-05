@@ -23,10 +23,9 @@ class PostsTableViewController: UITableViewController {
         
         if let identifier = segue.identifier {
             let realm = Realm()
-            println("No one loves \(identifier)")
             switch identifier {
                 case "Done":
-                    println("No one loves \(identifier)")
+                    //println("No one loves \(identifier)")
                     posts = realm.objects(Post).sorted("venue", ascending: true)
         
                 default:
@@ -47,7 +46,6 @@ class PostsTableViewController: UITableViewController {
         myTableView.dataSource = self
         let realm = Realm()
         posts = realm.objects(Post).sorted("venue", ascending: true)
-        println(realm.objects(Post))
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
