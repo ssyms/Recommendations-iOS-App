@@ -47,8 +47,7 @@ class PostsTableViewController: UITableViewController {
         myTableView.dataSource = self
         let realm = Realm()
         posts = realm.objects(Post).sorted("venue", ascending: true)
-        
-        posts = realm.objects(Post)
+        println(realm.objects(Post))
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

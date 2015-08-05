@@ -22,6 +22,7 @@ class PostTableViewCell: UITableViewCell {
                 self.locationLabel.text = post.location
                 self.priceLabel.text = post.price
                 self.typeLabel.text = post.type
+                //self.idLabel.text = post.id
             }
         }
     }

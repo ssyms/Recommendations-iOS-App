@@ -109,16 +109,6 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxN-81-OCp">
-                                            <rect key="frame" x="506" y="21" width="50" height="50"/>
-                                            <state key="normal" image="PlusUnfilled">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="selected" image="PlusFilled"/>
-                                            <connections>
-                                                <action selector="addButtonTapped:" destination="tYY-u2-m82" eventType="touchUpInside" id="Ltp-2f-bci"/>
-                                            </connections>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuq-1F-gjJ" userLabel="Location">
                                             <rect key="frame" x="96" y="29" width="107" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -137,6 +127,16 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxN-81-OCp">
+                                            <rect key="frame" x="506" y="21" width="50" height="50"/>
+                                            <state key="normal" image="PlusUnfilled">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="PlusFilled"/>
+                                            <connections>
+                                                <action selector="addButtonTapped:" destination="tYY-u2-m82" eventType="touchUpInside" id="Ltp-2f-bci"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="HxN-81-OCp" secondAttribute="trailing" constant="4" id="crx-9K-5NQ"/>

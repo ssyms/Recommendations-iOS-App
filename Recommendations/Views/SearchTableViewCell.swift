@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 import RealmSwift
 
 protocol SearchTableViewCellDelegate: class {
@@ -15,7 +16,7 @@ protocol SearchTableViewCellDelegate: class {
 }
 
 class SearchTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var venueLabel: UILabel!
     @IBOutlet weak var venueImage: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
@@ -23,7 +24,6 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     weak var delegate: SearchTableViewCellDelegate?
-
     
     var venue: Venue? {
         didSet {
@@ -38,12 +38,11 @@ class SearchTableViewCell: UITableViewCell {
                 self.locationLabel.text = currentCell.location
                 self.priceLabel.text = currentCell.price
                 self.typeLabel.text = currentCell.type
+                //self.idLabel.text = currentCell.id
             }
         }
     }
     
-    
-    let realm = Realm()
     var canAdd: Bool? = true {
         didSet {
             /*
@@ -62,13 +61,45 @@ class SearchTableViewCell: UITableViewCell {
             delegate?.cell(self, didSelectAddVenue: venue!)
             self.canAdd = false
             println("tapped button working")
-            } else {
+            let addedPost = Post()
+            addedPost.venue   = venueLabel.text!
+            addedPost.location = locationLabel.text!
+            addedPost.type = priceLabel.text!
+            addedPost.price = typeLabel.text!
+            //addedPost.id = idLabel.text!
+            
+            let realm = Realm()
+            realm.write( ) { // 2
+                realm.add(addedPost) // 3
+                println("added to realm)")
+            }
+        } else {
             delegate?.cell(self, didSelectUnAddVenue: venue!)
+            let realm = Realm()
+            var posts = realm.objects(Post)
+            for post in posts{
+                //println(post)
+                if post.venue == venueLabel.text {
+                    println(post.venue)
+                    realm.write() {
+                        realm.delete(post)
+                    }
+                }
+            }
+            /*realm.write() {
+            realm.delete(self.currentCell!)
+            }*/
             self.canAdd = true
         }
     }
-
-
+    
+    
+    /*static func getAddedVenues() {
+    let query = PFQuery(className: ParseFollowClass)
+    
+    query.whereKey(ParseFollowFromUser, equalTo:user)
+    query.findObjectsInBackgroundWithBlock(completionBlock)
+    }*/
     
     override func awakeFromNib() {
         super.awakeFromNib()

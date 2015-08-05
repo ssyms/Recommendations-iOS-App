@@ -106,6 +106,7 @@ class SearchTableViewController: UITableViewController {
         cell.locationLabel!.text = venue.city + ", " + venue.state
         cell.typeLabel!.text = venue.category
         cell.priceLabel!.text = venue.priceTier
+        //cell.idLabel!.text = venue.id
         cell.venue = venue
         cell.delegate = self
         return cell
@@ -144,8 +145,11 @@ extension SearchTableViewController: SearchTableViewCellDelegate {
     func cell(cell: SearchTableViewCell, didSelectAddVenue: Venue) {
         println("delegate working")
         println(cell.venueLabel.text)
+        /*let api = FourSquareAPI()
+        venues = [Venue]()
+        let venue = venues[indexPath.row]
         let addedPost = Post()
-        addedPost.venue   = cell.venueLabel.text!
+        addedPost.venue   = venue.name
         addedPost.location = cell.locationLabel.text!
         addedPost.type = cell.priceLabel.text!
         addedPost.price = cell.typeLabel.text!
@@ -154,18 +158,24 @@ extension SearchTableViewController: SearchTableViewCellDelegate {
         realm.write( ) { // 2
             realm.add(addedPost) // 3
             println("added to realm)")
-        }
-
-        //cell.venueLabel!.text = venue.name
-        //cell.locationLabel!.text = venue.city + ", " + venue.state
-        //cell.typeLabel!.text = venue.category
-        //cell.priceLabel!.text = venue.priceTier
-    
-        //currentPost = cell.currentCell!
+        }*/
         
     }
     
     func cell(cell: SearchTableViewCell, didSelectUnAddVenue: Venue) {
+        println("deselect working")
+        let realm = Realm()
+        /*var posts = realm.objects(Post)
+        for post in posts{
+            if post.venue == cell.venueLabel.text! && post.location == cell.locationLabel.text! && post.type == cell.priceLabel.text! && post.price == cell.typeLabel.text! {
+                realm.write(){
+                    realm.delete(post)
+                }
+            }*/
+        //}
+        
+
+        
         
         /*if var followingUsers = followingUsers {
             ParseHelper.removeFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user)
