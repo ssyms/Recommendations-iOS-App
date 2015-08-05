@@ -149,5 +149,18 @@ extension PostsTableViewController: UITableViewDataSource {
         
     }
     
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let post = posts[indexPath.row] as Object
+            
+            let realm = Realm()
+            
+            realm.write() {
+                realm.delete(post)
+            }
+            
+            posts = realm.objects(Post).sorted("venue", ascending: true)
+        }
+    }
     
 }

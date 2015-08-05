@@ -15,7 +15,7 @@ class FourSquareAPI {
     func searchVenues (completion: (([Venue]) -> Void)!, ll: String) {
         println("searchVenues active")
         println(ll)
-        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&venuePhotos=1&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
         
@@ -31,13 +31,26 @@ class FourSquareAPI {
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            println(response)
+                            //println(response)
                             if let venuesData = response["venues"] as? [[String: AnyObject]] {
-                                
+                                println(venuesData)
                                 for venueData in venuesData {
                                     let venue = Venue(data: venueData)
                                     venues.append(venue)
                                 }
+                                /*if let item = venuesData[0] as? [[String: AnyObject]] {
+                                        println(item)
+                                        for item in item{
+                                            //println(item)
+                                            let venue = Venue(data: item)
+                                            venues.append(venue)
+                                            println(venue.name)
+                                        }
+                                }
+                                for venueData in venuesData {
+                                    let venue = Venue(data: venueData)
+                                    venues.append(venue)
+                                }*/
                                 
                                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                                 dispatch_async(dispatch_get_global_queue(priority, 0)){
@@ -113,6 +126,8 @@ class FourSquareAPI {
         task.resume()
         
     }
+    
+
 
     
 }
