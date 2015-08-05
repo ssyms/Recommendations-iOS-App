@@ -28,6 +28,14 @@ class SearchTableViewCell: UITableViewCell {
     var venue: Venue? {
         didSet {
             venueLabel.text = venue?.name
+            
+            venueImage.image = nil
+            
+            /*if let urlString = venue.url {
+                if let url = NSURL(string: urlString) {
+                        venueImage.sd_setImageWithURL(url, placeholderImage: nil)
+                }
+            }*/
         }
     }
     
@@ -43,6 +51,7 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
+
     var canAdd: Bool? = true {
         didSet {
             /*
@@ -52,8 +61,12 @@ class SearchTableViewCell: UITableViewCell {
             if let canAdd = canAdd {
                 addButton.selected = !canAdd
             }
+            
         }
     }
+    
+
+
     
     
     @IBAction func addButtonTapped(sender: AnyObject) {
@@ -66,26 +79,25 @@ class SearchTableViewCell: UITableViewCell {
             addedPost.location = locationLabel.text!
             addedPost.type = priceLabel.text!
             addedPost.price = typeLabel.text!
-            //addedPost.id = idLabel.text!
+            addedPost.id = venue!.id!
             
             let realm = Realm()
             realm.write( ) { // 2
                 realm.add(addedPost) // 3
                 println("added to realm)")
+                println(addedPost.id)
             }
         } else {
             delegate?.cell(self, didSelectUnAddVenue: venue!)
             let realm = Realm()
-            var posts = realm.objects(Post)
-            for post in posts{
-                //println(post)
-                if post.venue == venueLabel.text {
-                    println(post.venue)
-                    realm.write() {
-                        realm.delete(post)
-                    }
+            var posts = realm.objects(Post).filter("id = '\(venue!.id!)'")
+            
+            if posts.count > 0 {
+                realm.write() {
+                    realm.delete(posts[0])
                 }
             }
+            
             /*realm.write() {
             realm.delete(self.currentCell!)
             }*/

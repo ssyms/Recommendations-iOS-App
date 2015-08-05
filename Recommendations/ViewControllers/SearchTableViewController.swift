@@ -101,11 +101,17 @@ class SearchTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
+        
         let venue = venues[indexPath.row]
         cell.venueLabel!.text = venue.name
         cell.locationLabel!.text = venue.city + ", " + venue.state
         cell.typeLabel!.text = venue.category
         cell.priceLabel!.text = venue.priceTier
+        let realm = Realm()
+        var posts = realm.objects(Post).filter("id = '\(venue.id!)'")
+        if posts.count > 0 {
+            cell.canAdd = false
+        }
         //cell.idLabel!.text = venue.id
         cell.venue = venue
         cell.delegate = self

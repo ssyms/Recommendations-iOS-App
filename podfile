@@ -4,6 +4,7 @@
 target 'Recommendations' do
 	pod 'RealmSwift'
 	use_frameworks!
+    pod 'SDWebImage'
 end
 
 target 'RecommendationsTests' do

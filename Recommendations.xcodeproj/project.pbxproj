@@ -55,6 +55,7 @@
 		7B426B661B68934700DBA451 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTableViewCell.swift; path = Views/SearchTableViewCell.swift; sourceTree = "<group>"; };
 		7B426B691B69505500DBA451 /* FourSquareAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourSquareAPI.swift; sourceTree = "<group>"; };
 		7B426B6B1B695B3400DBA451 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		7BE310E01B7290CF00DA477B /* Recommendations-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Recommendations-Bridging-Header.h"; sourceTree = "<group>"; };
 		82B0AAAC475A4B8E97ECAF3D /* Pods-Recommendations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recommendations.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Recommendations/Pods-Recommendations.debug.xcconfig"; sourceTree = "<group>"; };
 		BB1C962E4D9B8724E532658F /* Pods-Recommendations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recommendations.release.xcconfig"; path = "Pods/Target Support Files/Pods-Recommendations/Pods-Recommendations.release.xcconfig"; sourceTree = "<group>"; };
 		BD40FDF27A80B6FD5EB22BEB /* Pods-RecommendationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecommendationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RecommendationsTests/Pods-RecommendationsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				7B046BD81B68231000CC716A /* Info.plist */,
+				7BE310E01B7290CF00DA477B /* Recommendations-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -542,6 +544,7 @@
 				INFOPLIST_FILE = Recommendations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Recommendations/Recommendations-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -558,6 +561,7 @@
 				INFOPLIST_FILE = Recommendations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Recommendations/Recommendations-Bridging-Header.h";
 			};
 			name = Release;
 		};

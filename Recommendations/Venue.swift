@@ -19,6 +19,7 @@ class Venue{
     var state: String!
     var category: String!
     var priceTier: String!
+    var imageUrl: String!
     
     /*
     var hours: String!

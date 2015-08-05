@@ -31,7 +31,7 @@ class FourSquareAPI {
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            //println(response)
+                            println(response)
                             if let venuesData = response["venues"] as? [[String: AnyObject]] {
                                 
                                 for venueData in venuesData {

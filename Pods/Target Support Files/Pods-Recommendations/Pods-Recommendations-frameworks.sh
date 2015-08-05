@@ -54,8 +54,10 @@ code_sign_if_enabled() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-Recommendations/Realm.framework'
   install_framework 'Pods-Recommendations/RealmSwift.framework'
+  install_framework 'Pods-Recommendations/SDWebImage.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-Recommendations/Realm.framework'
   install_framework 'Pods-Recommendations/RealmSwift.framework'
+  install_framework 'Pods-Recommendations/SDWebImage.framework'
 fi
