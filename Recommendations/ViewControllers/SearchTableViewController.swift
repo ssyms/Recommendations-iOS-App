@@ -73,17 +73,19 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
             let latitude = "\(currentLocation.coordinate.latitude)"
             let longitude = "\(currentLocation.coordinate.longitude)"
             println(longitude + ", " + latitude)
-            } else {
-                println("nil loc")
-            }
+            let ll: String = longitude + "," + latitude
+            let api = FourSquareAPI()
+                api.searchVenues(didSearchVenues, ll: ll)
+        } else {
+            println("nil loc")
+        }
             
         } else {
             println("location not authorized")
         }
         
         
-        let api = FourSquareAPI()
-        api.searchVenues(didSearchVenues)
+        
         //var currentLocation = CLLocation!
         
         /*if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse){

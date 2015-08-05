@@ -40,7 +40,9 @@ class Venue{
         self.state = getStringFromDict(data, key: "location", key2: "state")
         self.priceTier = getStringFromDict(data, key: "price", key2: "tier")
         self.category = accessCat(data, key: "categories")
+        //self.imageUrl = getPicURL( venID: self.id)
     }
+    
     func accessCat(data: NSDictionary, key: String) -> String{
         if let newData: AnyObject = data[key]{
             if let response = newData[0] as? [String: AnyObject] {
@@ -65,4 +67,6 @@ class Venue{
             return ""
         }
     }
+
 }
+
