@@ -21,6 +21,7 @@ class PostsTableViewController: UITableViewController {
             myTableView?.reloadData()
         }
     }
+    
     @IBAction func unwindToSegue(segue: UIStoryboardSegue) {
         
         if let identifier = segue.identifier {

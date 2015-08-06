@@ -52,7 +52,7 @@
                                     <outlet property="locationLabel" destination="cap-pM-On4" id="gkc-Bi-qsO"/>
                                     <outlet property="priceLabel" destination="cxo-Up-uBJ" id="oVy-fo-mJc"/>
                                     <outlet property="typeLabel" destination="iGB-MQ-xsm" id="IE1-Mz-jVJ"/>
-                                    <outlet property="venueImage" destination="UUY-nE-DXr" id="lEb-9Z-xIO"/>
+                                    <outlet property="venueImage" destination="UUY-nE-DXr" id="rmA-uf-0gF"/>
                                     <outlet property="venueLabel" destination="aX8-Q7-gLF" id="euf-RA-oh0"/>
                                     <segue destination="Lgn-Bs-tKb" kind="show" identifier="ShowVenueDetails" id="oaj-qx-aNU"/>
                                 </connections>
@@ -101,7 +101,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tYY-u2-m82" id="8dZ-SU-aT6">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="we5-Zm-whk">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="we5-Zm-whk">
                                             <rect key="frame" x="8" y="0.0" width="80" height="79"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSy-Ir-XLb" userLabel="Venue">
@@ -179,7 +179,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IO1-YF-nhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Xde-iF-qqv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="579" y="-285"/>
+            <point key="canvasLocation" x="771" y="-137"/>
         </scene>
         <!--Venue View Controller-->
         <scene sceneID="eyN-rM-0yO">

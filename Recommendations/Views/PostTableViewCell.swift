@@ -15,6 +15,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var venueImage: UIImageView!
     
+    
     var post: Post? {
         didSet {
             if let post = post, venueLabel = venueLabel, locationLabel = locationLabel, typeLabel = typeLabel, priceLabel = priceLabel {
@@ -22,7 +23,13 @@ class PostTableViewCell: UITableViewCell {
                 self.locationLabel.text = post.location
                 self.priceLabel.text = post.price
                 self.typeLabel.text = post.type
-                //self.idLabel.text = post.id
+                self.venueImage.image = nil
+                
+                let urlString = post.imageUrl
+                if let url = NSURL(string: urlString) {
+                    self.venueImage.sd_setImageWithURL(url, placeholderImage: nil)
+                }
+
             }
         }
     }

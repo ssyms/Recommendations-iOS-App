@@ -31,22 +31,21 @@ class SearchTableViewCell: UITableViewCell {
             
             venueImage.image = nil
             
-            /*if let urlString = venue.url {
+            if let urlString = venue!.imageUrl {
                 if let url = NSURL(string: urlString) {
                         venueImage.sd_setImageWithURL(url, placeholderImage: nil)
                 }
-            }*/
+            }
         }
     }
     
     var currentCell: Post? {
         didSet {
-            if let currentCell = currentCell, venueLabel = venueLabel, locationLabel = locationLabel, typeLabel = typeLabel, priceLabel = priceLabel {
+            if let currentCell = currentCell, venueLabel = venueLabel, locationLabel = locationLabel, typeLabel = typeLabel, priceLabel = priceLabel, venueImage = venueImage {
                 self.venueLabel.text = currentCell.venue
                 self.locationLabel.text = currentCell.location
                 self.priceLabel.text = currentCell.price
                 self.typeLabel.text = currentCell.type
-                //self.idLabel.text = currentCell.id
             }
         }
     }
@@ -79,6 +78,7 @@ class SearchTableViewCell: UITableViewCell {
             addedPost.type = priceLabel.text!
             addedPost.price = typeLabel.text!
             addedPost.id = venue!.id!
+            addedPost.imageUrl = venue!.imageUrl!
             
             let realm = Realm()
             realm.write( ) { // 2

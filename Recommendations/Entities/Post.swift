@@ -19,6 +19,6 @@ class Post: Object {
     dynamic var id: String = ""
     //dynamic var id: String = ""
     //dynamic var content: String = ""
-    //dynamic var image
+    dynamic var imageUrl: String = ""
    
 }

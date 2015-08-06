@@ -38,15 +38,15 @@ class Venue{
         self.country = getStringFromDict(data, key: "location", key2: "country")
         self.city = getStringFromDict(data, key: "location", key2: "city")
         self.state = getStringFromDict(data, key: "location", key2: "state")
-        self.priceTier = getStringFromDict(data, key: "price", key2: "tier")
-        self.category = accessCat(data, key: "categories")
-        //self.imageUrl = getPicURL( venID: self.id)
+        self.priceTier = getStringFromDict(data, key: "price", key2: "currency")
+        self.category = accessCat(data, key: "categories", key2: "name")
+        self.imageUrl = getPicUrl(data, key: "prefix") + "100x100" + getPicUrl(data, key: "suffix")
     }
     
-    func accessCat(data: NSDictionary, key: String) -> String{
+    func accessCat(data: NSDictionary, key: String, key2: String) -> String{
         if let newData: AnyObject = data[key]{
             if let response = newData[0] as? [String: AnyObject] {
-                return (response["name"] as? String)!
+                return (response[key2] as? String)!
             }
             else{
                 return ""
@@ -66,6 +66,15 @@ class Venue{
             }else{
             return ""
         }
+    }
+    
+    func getPicUrl(data: NSDictionary, key: String) -> String{
+        if let newData: AnyObject = data["featuredPhotos"]{
+            return accessCat(newData as! NSDictionary, key: "items", key2: key)
+        } else {
+            
+        }
+        return ""
     }
 
 }
