@@ -13,6 +13,8 @@ class PostsTableViewController: UITableViewController {
     
     @IBOutlet var myTableView: UITableView!
     
+    var selectedPost: Post?
+    
     var posts: Results<Post>! {
         didSet {
             // Whenever posts update, update the table view
@@ -27,6 +29,13 @@ class PostsTableViewController: UITableViewController {
                 case "Done":
                     //println("No one loves \(identifier)")
                     posts = realm.objects(Post).sorted("venue", ascending: true)
+                /*case "Cancel":
+                    realm.write() {
+                        realm.delete(self.selectedPost!)
+                    }
+                
+                    let source = segue.sourceViewController as! SearchTableViewController
+                    source.post = nil;*/
         
                 default:
                     println("No one loves \(identifier)")
@@ -43,7 +52,8 @@ class PostsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myTableView.dataSource = self
+        tableView.dataSource = self
+        tableView.delegate = self
         let realm = Realm()
         posts = realm.objects(Post).sorted("venue", ascending: true)
         
@@ -57,6 +67,13 @@ class PostsTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowVenueDetails") {
+            let venueViewController = segue.destinationViewController as! VenueViewController
+            venueViewController.post = selectedPost
+        }
     }
     
     // MARK: - Table view data source
@@ -149,6 +166,17 @@ extension PostsTableViewController: UITableViewDataSource {
         
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedPost = posts[indexPath.row]      //1
+//        self.performSegueWithIdentifier("ShowVenueDetails", sender: self)     //2
+    }
+    
+    // 3
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    // 4
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let post = posts[indexPath.row] as Object
@@ -162,5 +190,6 @@ extension PostsTableViewController: UITableViewDataSource {
             posts = realm.objects(Post).sorted("venue", ascending: true)
         }
     }
+
     
 }

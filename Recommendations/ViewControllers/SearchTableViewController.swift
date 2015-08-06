@@ -137,10 +137,6 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
 
         
     }
-
-    
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
