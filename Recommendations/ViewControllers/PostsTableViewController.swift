@@ -169,7 +169,7 @@ extension PostsTableViewController: UITableViewDataSource {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedPost = posts[indexPath.row]      //1
-//        self.performSegueWithIdentifier("ShowVenueDetails", sender: self)     //2
+        //self.performSegueWithIdentifier("ShowVenueDetails", sender: self)     //2
     }
     
     // 3

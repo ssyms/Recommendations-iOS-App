@@ -42,6 +42,11 @@ class VenueViewController: UIViewController {
             self.countryLabel.text = post.location
             self.priceTierLabel.text = post.price
             self.typeLabel.text = post.type
+            let urlString = post.imageUrl
+            if let url = NSURL(string: urlString) {
+                self.venueImage.sd_setImageWithURL(url, placeholderImage: nil)
+            }
+
             //self.addressLabel.text = post.address
             //self.ratingLabel.text = post.rating
             //self.descriptionLabel.text = post.description

@@ -40,7 +40,7 @@ class Venue{
         self.state = getStringFromDict(data, key: "location", key2: "state")
         self.priceTier = getStringFromDict(data, key: "price", key2: "currency")
         self.category = accessCat(data, key: "categories", key2: "name")
-        self.imageUrl = getPicUrl(data, key: "prefix") + "100x100" + getPicUrl(data, key: "suffix")
+        self.imageUrl = getPicUrl(data, key: "prefix") + "500x500" + getPicUrl(data, key: "suffix")
     }
     
     func accessCat(data: NSDictionary, key: String, key2: String) -> String{
