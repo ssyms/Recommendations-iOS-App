@@ -111,8 +111,30 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         super.viewDidLoad()
         let searchText = searchBar?.text ?? ""
         venues = [Venue]()
-        let api = FourSquareAPI()
-        api.searchVenuesWithQuery(didSearchVenues, query: searchText)
+        locManager.requestWhenInUseAuthorization()
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.startUpdatingLocation()
+        
+        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
+        {
+            if let currentLocation : CLLocation = locManager.location {
+                
+                let latitude = "\(currentLocation.coordinate.latitude)"
+                let longitude = "\(currentLocation.coordinate.longitude)"
+                println(longitude + ", " + latitude)
+                let ll: String = longitude + "," + latitude
+                let api = FourSquareAPI()
+                api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+            } else {
+                println("nil loc")
+            }
+            
+        } else {
+            println("location not authorized")
+        }
+
         
     }
 
@@ -174,8 +196,30 @@ extension SearchTableViewController: UISearchBarDelegate {
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        let api = FourSquareAPI()
-        api.searchVenuesWithQuery(didSearchVenues, query: searchText)
+        locManager.requestWhenInUseAuthorization()
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.startUpdatingLocation()
+        
+        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
+        {
+            if let currentLocation : CLLocation = locManager.location {
+                
+                let latitude = "\(currentLocation.coordinate.latitude)"
+                let longitude = "\(currentLocation.coordinate.longitude)"
+                println(longitude + ", " + latitude)
+                let ll: String = longitude + "," + latitude
+                let api = FourSquareAPI()
+                api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+            } else {
+                println("nil loc")
+            }
+            
+        } else {
+            println("location not authorized")
+        }
+
     }
     
 }
