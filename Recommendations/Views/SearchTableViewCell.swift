@@ -79,6 +79,8 @@ class SearchTableViewCell: UITableViewCell {
             addedPost.price = typeLabel.text!
             addedPost.id = venue!.id!
             addedPost.imageUrl = venue!.imageUrl!
+            addedPost.address = venue!.address!
+            //addedPost.rating = venue!.rating!
             
             let realm = Realm()
             realm.write( ) { // 2

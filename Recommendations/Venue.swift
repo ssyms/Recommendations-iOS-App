@@ -20,19 +20,12 @@ class Venue{
     var category: String!
     var priceTier: String!
     var imageUrl: String!
-    
-    /*
-    var hours: String!
-    var price: String!
     var rating: String!
-    var description: String!
-
-    */
-    
     
     init(data: [String: AnyObject]){
         self.id = data["id"] as? String
         self.name = data["name"] as? String
+        self.rating = data["rating"] as? String
         self.address = getStringFromDict(data, key: "location", key2: "address")
         self.cc = getStringFromDict(data, key: "location", key2: "cc")
         self.country = getStringFromDict(data, key: "location", key2: "country")
@@ -70,12 +63,35 @@ class Venue{
     
     func getPicUrl(data: NSDictionary, key: String) -> String{
         if let newData: AnyObject = data["featuredPhotos"]{
-            return accessCat(newData as! NSDictionary, key: "items", key2: key)
-        } else {
-            
-        }
-        return ""
-    }
+            let info = accessCat(newData as! NSDictionary, key: "items", key2: key)
+            if info.isEmpty {
+                println("if statement")
+                if let newData: AnyObject = data["categories"]{
+                    if let response = newData[0] as? [String: AnyObject] {
+                        if let info = response[key] as? String {
+                            println(info)
+                            return info
+                        } else {
+                            return info
+                        }
+                    }
+                    else{
+                        return info
+                    }
+                }else {
+                    return info
+                }
 
+            }
+            return info
+            }
+        else {
+            return ""
+        }
+    }
+    
 }
+
+
+
 

@@ -20,5 +20,8 @@ class Post: Object {
     //dynamic var id: String = ""
     //dynamic var content: String = ""
     dynamic var imageUrl: String = ""
+    dynamic var rating: String = ""
+    dynamic var address: String = ""
+    
    
 }

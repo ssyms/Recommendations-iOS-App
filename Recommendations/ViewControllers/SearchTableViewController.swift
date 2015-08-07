@@ -156,9 +156,26 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         
         let venue = venues[indexPath.row]
         cell.venueLabel!.text = venue.name
-        cell.locationLabel!.text = venue.city + ", " + venue.state
+        if venue.city.isEmpty == false && venue.state.isEmpty == false {
+            //println(venue.name)
+            //println("it passed- city and state")
+            cell.locationLabel!.text = venue.city + ", " + venue.state
+        } else if venue.country.isEmpty == false &&  venue.city.isEmpty == false {
+            //println(venue.name)
+            //println("city and country")
+            cell.locationLabel!.text = venue.city + ", " + venue.country
+        } else if venue.country.isEmpty == false &&  venue.state.isEmpty == false {
+            //println(venue.name)
+            //println("city and country")
+            cell.locationLabel!.text = venue.state + ", " + venue.country
+        } else {
+            cell.locationLabel!.text = venue.country
+            //println(venue.name)
+            //println("it passed- country")
+            println(cell.locationLabel!.text)
+        }
         cell.typeLabel!.text = venue.category
-        cell.priceLabel!.text = venue.priceTier
+        cell.priceLabel!.text = "•  " + venue.priceTier
         let realm = Realm()
         var posts = realm.objects(Post).filter("id = '\(venue.id!)'")
         if posts.count > 0 {

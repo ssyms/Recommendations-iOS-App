@@ -32,14 +32,17 @@ class FourSquareAPI {
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            //println(response)
                             if let venuesData = response["groups"] as? [[String: AnyObject]] {
                                 if let items = venuesData[0]["items"] as? [[String : AnyObject]] {
+                                    //println(items)
                                     for item in items {
                                         if let venueJSON = item["venue"] as? [String : AnyObject] {
                                             let venue = Venue(data: venueJSON)
                                             venues.append(venue)
+                                            println(venue.name)
+                                            println(venue.imageUrl)
                                         }
+                                        
                                     }
                                 }
                                 
@@ -102,11 +105,14 @@ class FourSquareAPI {
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
                             println(response)
-                            if let venuesData = response["venues"] as? [[String: AnyObject]] {
-                                println(venuesData)
-                                for venueData in venuesData {
-                                    let venue = Venue(data: venueData)
-                                    venues.append(venue)
+                            if let venuesData = response["groups"] as? [[String: AnyObject]] {
+                                if let items = venuesData[0]["items"] as? [[String : AnyObject]] {
+                                    for item in items {
+                                        if let venueJSON = item["venue"] as? [String : AnyObject] {
+                                            let venue = Venue(data: venueJSON)
+                                            venues.append(venue)
+                                        }
+                                    }
                                 }
                                 
                                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT

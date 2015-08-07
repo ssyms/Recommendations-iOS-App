@@ -20,7 +20,6 @@ class VenueViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var priceTierLabel: UILabel!
     
-    @IBOutlet weak var descriptionLabel: UILabel!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,11 +36,13 @@ class VenueViewController: UIViewController {
     
     
     func displayPost(post: Post?) {
-        if let post = post, venueLabel = venueLabel, typeLabel = typeLabel, addressLabel = addressLabel, countryLabel = countryLabel, ratingLabel = ratingLabel, priceTierLabel = priceTierLabel, descriptionLabel = descriptionLabel, venueImage = venueImage {
+        if let post = post, venueLabel = venueLabel, typeLabel = typeLabel, addressLabel = addressLabel, countryLabel = countryLabel, ratingLabel = ratingLabel, priceTierLabel = priceTierLabel, venueImage = venueImage {
             self.venueLabel.text = post.venue
             self.countryLabel.text = post.location
             self.priceTierLabel.text = post.price
             self.typeLabel.text = post.type
+            self.ratingLabel.text = post.rating
+            self.addressLabel.text = post.address
             let urlString = post.imageUrl
             if let url = NSURL(string: urlString) {
                 self.venueImage.sd_setImageWithURL(url, placeholderImage: nil)
