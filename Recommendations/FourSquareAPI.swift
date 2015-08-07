@@ -39,8 +39,8 @@ class FourSquareAPI {
                                         if let venueJSON = item["venue"] as? [String : AnyObject] {
                                             let venue = Venue(data: venueJSON)
                                             venues.append(venue)
-                                            println(venue.name)
-                                            println(venue.imageUrl)
+                                            //println(venue.name)
+                                            //println(venue.imageUrl)
                                         }
                                         
                                     }
@@ -87,7 +87,9 @@ class FourSquareAPI {
     func searchVenuesWithQuery (completion: (([Venue]) -> Void)!, query: String, ll: String) {
         println("searchVenuesWithQuery active")
         let urlQuery = query.stringByReplacingOccurrencesOfString(" ", withString: "_")
-        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
+        println(urlQuery)
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&venuePhotos=1&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
+        
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
         
@@ -100,27 +102,50 @@ class FourSquareAPI {
                 println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
-                    println("jsonObject here")
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            println(response)
-                            if let venuesData = response["groups"] as? [[String: AnyObject]] {
-                                if let items = venuesData[0]["items"] as? [[String : AnyObject]] {
+                            //println(response)
+                            if let venuesData = response["venues"] as? [[String: AnyObject]] {
+                                //println(venuesData)
+                                for item in venuesData {
+                                    let venue = Venue(data: item)
+                                    venues.append(venue)
+                                    println(venue.name)
+                                    //println(venue.imageUrl)
+                                    
+                                }
+                                
+                                /*if let items = venuesData[0]["items"] as? [[String : AnyObject]] {
+                                    println(items)
                                     for item in items {
                                         if let venueJSON = item["venue"] as? [String : AnyObject] {
                                             let venue = Venue(data: venueJSON)
                                             venues.append(venue)
+                                            println(venue.name)
+                                            println(venue.imageUrl)
                                         }
+                                        
                                     }
-                                }
+                                }*/
                                 
-                                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-                                dispatch_async(dispatch_get_global_queue(priority, 0)){
+                                /*if let item = venuesData[0] as? [[String: AnyObject]] {
+                                println(item)
+                                for item in item{
+                                //println(item)
+                                let venue = Venue(data: item)
+                                venues.append(venue)
+                                println(venue.name)
+                                }
+                                }
+                                for venueData in venuesData {
+                                let venue = Venue(data: venueData)
+                                venues.append(venue)
+                                }*/
                                     dispatch_async(dispatch_get_main_queue()){
                                         completion(venues)
                                     }
-                                }
+                                
                             }
                         }
                         

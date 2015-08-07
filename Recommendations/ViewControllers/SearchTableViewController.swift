@@ -48,10 +48,15 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         didSet {
             switch (state) {
             case .DefaultMode:
-                viewDidLoad()
+                loadInitialData()
                 
             case .SearchMode:
-                searchView()
+                println("search")
+                let searchText = "ountry"
+                let ll: String = "-77,40.7"
+                //let api = FourSquareAPI()
+                //api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+                //searchView()
                 }
         }
     }
@@ -59,32 +64,9 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        venues = [Venue]()
-        locManager.requestWhenInUseAuthorization()
-        locManager.delegate = self
-        locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.startUpdatingLocation()
-        
-        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
-        {
-            if let currentLocation : CLLocation = locManager.location {
-            
-            let latitude = "\(currentLocation.coordinate.latitude)"
-            let longitude = "\(currentLocation.coordinate.longitude)"
-            println(longitude + ", " + latitude)
-            let ll: String = longitude + "," + latitude
-            let api = FourSquareAPI()
-                api.searchVenues(didSearchVenues, ll: ll)
-        } else {
-            println("nil loc")
-        }
-            
-        } else {
-            println("location not authorized")
-        }
         
         
+        loadInitialData()
         
         //var currentLocation = CLLocation!
         
@@ -100,16 +82,7 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-
-
-   func didSearchVenues(venues: [Venue]){
-        self.venues = venues
-        tableView.reloadData()
-    }
-        
-    func searchView(){
-        super.viewDidLoad()
-        let searchText = searchBar?.text ?? ""
+    func loadInitialData() {
         venues = [Venue]()
         locManager.requestWhenInUseAuthorization()
         locManager.delegate = self
@@ -126,6 +99,41 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
                 println(longitude + ", " + latitude)
                 let ll: String = longitude + "," + latitude
                 let api = FourSquareAPI()
+                api.searchVenues(didSearchVenues, ll: ll)
+            } else {
+                println("nil loc")
+            }
+            
+        } else {
+            println("location not authorized")
+        }
+    }
+
+
+   func didSearchVenues(venues: [Venue]){
+        self.venues = venues
+        tableView.reloadData()
+    }
+        
+    /*func searchView(){
+        super.viewDidLoad()
+        let searchText = searchBar?.text ?? ""
+        venues = [Venue]()
+        locManager.requestWhenInUseAuthorization()
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.startUpdatingLocation()
+        
+        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
+        {
+            if let currentLocation : CLLocation = locManager.location {
+                
+               let latitude = "\(currentLocation.coordinate.latitude)"
+               let longitude = "\(currentLocation.coordinate.longitude)"
+                println(longitude + ", " + latitude)
+                let ll: String = longitude + "," + latitude
+                let api = FourSquareAPI()
                 api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
             } else {
                 println("nil loc")
@@ -136,7 +144,7 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         }
 
         
-    }
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -224,7 +232,12 @@ extension SearchTableViewController: UISearchBarDelegate {
                 println(longitude + ", " + latitude)
                 let ll: String = longitude + "," + latitude
                 let api = FourSquareAPI()
+                if searchBar.text.isEmpty == false {
                 api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+                } else {
+                    loadInitialData()
+                }
+                
             } else {
                 println("nil loc")
             }
