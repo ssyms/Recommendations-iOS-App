@@ -111,7 +111,7 @@ class FourSquareAPI {
                                 for item in venuesData {
                                     let venue = Venue(data: item)
                                     venues.append(venue)
-                                    println(venue.name)
+                                
                                     //println(venue.imageUrl)
                                     
                                 }
@@ -163,7 +163,56 @@ class FourSquareAPI {
         
     }
     
-    
-    
+   func getVenuePhotos(venueID: String!){
+        var urlStringA = "https://api.foursquare.com/v2/venues/" + venueID + "/photos?&client_id="
+        var urlStringB = CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
+        var urlString = urlStringA + urlStringB
+        let session = NSURLSession.sharedSession()
+        let searchURL = NSURL(string: urlString)
+        
+        var task = session.dataTaskWithURL(searchURL!){
+            (data, NSResponse, err: NSError!) -> Void in
+            
+            if err != nil {
+                println(err.localizedDescription)
+            } else {
+                println("error is nil")
+                var err: NSError?
+                if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
+                    var venues = [Venue]()
+                    if let dict = jsonObject as? [String: AnyObject] {
+                        if let response = dict["response"] as? [String: AnyObject]{
+                            if let photos = response["photos"] as? [String: AnyObject]{
+                                if let items = photos["items"] as? [[String: AnyObject]] {
+                                    //println(items)
+                                }
+
+                                
+                            }
+
+                            
+                        }
+                       let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                                dispatch_async(dispatch_get_global_queue(priority, 0)){
+                                    dispatch_async(dispatch_get_main_queue()){
+                                    }
+                                }
+                            
+                        }
+                        
+                        
+                     else {
+                        
+                    }
+                } else {
+                    println("Could not parse JSON: \(err!)")
+                }
+                
+            }
+        }
+        task.resume()
+        
+    }
+
     
 }
