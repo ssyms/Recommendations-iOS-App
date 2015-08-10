@@ -15,7 +15,7 @@ class FourSquareAPI {
     func searchVenues (completion: (([Venue]) -> Void)!, ll: String) {
         println("searchVenues active")
         println(ll)
-        var urlString = "https://api.foursquare.com/v2/venues/explore?ll=" + ll + "&venuePhotos=1&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
@@ -32,20 +32,12 @@ class FourSquareAPI {
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            if let venuesData = response["groups"] as? [[String: AnyObject]] {
-                                if let items = venuesData[0]["items"] as? [[String : AnyObject]] {
-                                    //println(items)
-                                    for item in items {
-                                        if let venueJSON = item["venue"] as? [String : AnyObject] {
-                                            let venue = Venue(data: venueJSON)
-                                            venues.append(venue)
-                                            
-                                            self.getVenuePhotos(venue.id, venue: venue)
-                                            //println(venue.name)
-                                            //println(venue.imageUrl)
-                                        }
-                                        
-                                    }
+                            if let venuesData = response["venues"] as? [[String: AnyObject]] {
+                                for item in venuesData {
+                                    let venue = Venue(data: item)
+                                    venues.append(venue)
+                                    self.getVenuePhotos(venue.id, venue: venue)
+
                                 }
                                 
                                 /*if let item = venuesData[0] as? [[String: AnyObject]] {
@@ -90,7 +82,7 @@ class FourSquareAPI {
         println("searchVenuesWithQuery active")
         let urlQuery = query.stringByReplacingOccurrencesOfString(" ", withString: "_")
         println(urlQuery)
-        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&venuePhotos=1&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
         
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
@@ -114,9 +106,6 @@ class FourSquareAPI {
                                     let venue = Venue(data: item)
                                     venues.append(venue)
                                     self.getVenuePhotos(venue.id, venue: venue)
-                                    if venue.imageUrl == nil {
-                                        venue.imageUrl = venue.catUrl
-                                    }
                                     
                                 }
                                 
@@ -142,7 +131,9 @@ class FourSquareAPI {
     }
     
     func getVenuePhotos(venueID: String!, venue: Venue) -> Void {
-        var urlStringA = "https://api.foursquare.com/v2/venues/" + venueID + "/photos?&client_id="
+        println(venue.name)
+        println(venue.id)
+        var urlStringA = "https://api.foursquare.com/v2/venues/" + venue.id + "/photos?&client_id="
         var urlStringB = CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         var urlString = urlStringA + urlStringB
         let session = NSURLSession.sharedSession()
@@ -154,7 +145,6 @@ class FourSquareAPI {
             if err != nil {
                 println(err.localizedDescription)
             } else {
-                println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
                     var venues = [Venue]()
@@ -163,13 +153,15 @@ class FourSquareAPI {
                             if let photos = response["photos"] as? [String: AnyObject]{
                                 if let items = photos["items"] as? [[String: AnyObject]] {
                                     for item in items {
-                                        if venue.imageUrl == nil {
+                                        while venue.imageUrl == nil {
                                             let pre = item["prefix"] as! String
                                             let suf = item["suffix"] as! String
                                             let newUrl = pre + "500x500" + suf
                                             venue.imageUrl = newUrl
-                                            
                                         }
+                                    }
+                                    if venue.imageUrl == nil {
+                                        venue.imageUrl = venue.catUrl
                                     }
                                 }
 
