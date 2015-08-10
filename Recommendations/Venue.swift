@@ -21,6 +21,7 @@ class Venue{
     var priceTier: String!
     var imageUrl: String!
     var rating: String!
+    var catUrl: String!
     
     init(data: [String: AnyObject]){
         self.id = data["id"] as? String
@@ -33,7 +34,8 @@ class Venue{
         self.state = getStringFromDict(data, key: "location", key2: "state")
         self.priceTier = getStringFromDict(data, key: "price", key2: "currency")
         self.category = accessCat(data, key: "categories", key2: "name")
-        self.imageUrl = getPicUrl(data, key: "prefix") + "500x500" + getPicUrl(data, key: "suffix")
+        self.imageUrl = nil
+        self.catUrl = "https://foursquare.com/img/categories_v2/food/default_bg_88.png"
     }
     
     func accessCat(data: NSDictionary, key: String, key2: String) -> String{

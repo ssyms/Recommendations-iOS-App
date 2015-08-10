@@ -40,7 +40,7 @@ class FourSquareAPI {
                                             let venue = Venue(data: venueJSON)
                                             venues.append(venue)
                                             
-                                            self.getVenuePhotos(venue.id)
+                                            self.getVenuePhotos(venue.id, venue: venue)
                                             //println(venue.name)
                                             //println(venue.imageUrl)
                                         }
@@ -113,38 +113,14 @@ class FourSquareAPI {
                                 for item in venuesData {
                                     let venue = Venue(data: item)
                                     venues.append(venue)
-                                    self.getVenuePhotos(venue.id)
-                                    //println(venue.imageUrl)
+                                    self.getVenuePhotos(venue.id, venue: venue)
+                                    if venue.imageUrl == nil {
+                                        venue.imageUrl = venue.catUrl
+                                    }
                                     
                                 }
                                 
-                                /*if let items = venuesData[0]["items"] as? [[String : AnyObject]] {
-                                    println(items)
-                                    for item in items {
-                                        if let venueJSON = item["venue"] as? [String : AnyObject] {
-                                            let venue = Venue(data: venueJSON)
-                                            venues.append(venue)
-                                            println(venue.name)
-                                            println(venue.imageUrl)
-                                        }
-                                        
-                                    }
-                                }*/
-                                
-                                /*if let item = venuesData[0] as? [[String: AnyObject]] {
-                                println(item)
-                                for item in item{
-                                //println(item)
-                                let venue = Venue(data: item)
-                                venues.append(venue)
-                                println(venue.name)
-                                }
-                                }
-                                for venueData in venuesData {
-                                let venue = Venue(data: venueData)
-                                venues.append(venue)
-                                }*/
-                                    dispatch_async(dispatch_get_main_queue()){
+                                dispatch_async(dispatch_get_main_queue()){
                                         completion(venues)
                                     }
                                 
@@ -165,7 +141,7 @@ class FourSquareAPI {
         
     }
     
-   func getVenuePhotos(venueID: String!) -> Void {
+    func getVenuePhotos(venueID: String!, venue: Venue) -> Void {
         var urlStringA = "https://api.foursquare.com/v2/venues/" + venueID + "/photos?&client_id="
         var urlStringB = CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         var urlString = urlStringA + urlStringB
@@ -186,12 +162,15 @@ class FourSquareAPI {
                         if let response = dict["response"] as? [String: AnyObject]{
                             if let photos = response["photos"] as? [String: AnyObject]{
                                 if let items = photos["items"] as? [[String: AnyObject]] {
-                                    println(items)
-                                    //println(items[0])
-                                    //if let source = items[0]["source"] as? [[String : AnyObject]] {
-                                       // println(source)
-                                        
-                                   // }
+                                    for item in items {
+                                        if venue.imageUrl == nil {
+                                            let pre = item["prefix"] as! String
+                                            let suf = item["suffix"] as! String
+                                            let newUrl = pre + "500x500" + suf
+                                            venue.imageUrl = newUrl
+                                            
+                                        }
+                                    }
                                 }
 
                                 
