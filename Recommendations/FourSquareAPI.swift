@@ -101,7 +101,7 @@ class FourSquareAPI {
             if err != nil {
                 println(err.localizedDescription)
             } else {
-                println("error is nil")
+                //println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
                     var venues = [Venue]()
