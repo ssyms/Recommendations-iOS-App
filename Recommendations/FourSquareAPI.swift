@@ -39,6 +39,8 @@ class FourSquareAPI {
                                         if let venueJSON = item["venue"] as? [String : AnyObject] {
                                             let venue = Venue(data: venueJSON)
                                             venues.append(venue)
+                                            
+                                            self.getVenuePhotos(venue.id)
                                             //println(venue.name)
                                             //println(venue.imageUrl)
                                         }
@@ -111,7 +113,7 @@ class FourSquareAPI {
                                 for item in venuesData {
                                     let venue = Venue(data: item)
                                     venues.append(venue)
-                                
+                                    self.getVenuePhotos(venue.id)
                                     //println(venue.imageUrl)
                                     
                                 }
@@ -163,7 +165,7 @@ class FourSquareAPI {
         
     }
     
-   func getVenuePhotos(venueID: String!){
+   func getVenuePhotos(venueID: String!) -> Void {
         var urlStringA = "https://api.foursquare.com/v2/venues/" + venueID + "/photos?&client_id="
         var urlStringB = CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         var urlString = urlStringA + urlStringB
@@ -184,7 +186,12 @@ class FourSquareAPI {
                         if let response = dict["response"] as? [String: AnyObject]{
                             if let photos = response["photos"] as? [String: AnyObject]{
                                 if let items = photos["items"] as? [[String: AnyObject]] {
-                                    //println(items)
+                                    println(items)
+                                    //println(items[0])
+                                    //if let source = items[0]["source"] as? [[String : AnyObject]] {
+                                       // println(source)
+                                        
+                                   // }
                                 }
 
                                 
