@@ -87,26 +87,33 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         locManager.requestWhenInUseAuthorization()
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.startUpdatingLocation()
+        locationManager(locManager, didChangeAuthorizationStatus: CLLocationManager.authorizationStatus())
         
-        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
-        {
-            if let currentLocation : CLLocation = locManager.location {
+        
+    }
+    
+    func locationManager(manager: CLLocationManager,
+        didChangeAuthorizationStatus status: CLAuthorizationStatus){
+            if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
+            {
+                locManager.startUpdatingLocation()
+                if let currentLocation : CLLocation = locManager.location {
+                    
+                    let latitude = "\(currentLocation.coordinate.latitude)"
+                    let longitude = "\(currentLocation.coordinate.longitude)"
+                    println(longitude + ", " + latitude)
+                    let ll: String = longitude + "," + latitude
+                    let api = FourSquareAPI()
+                    api.searchVenues(didSearchVenues, ll: ll)
+                } else {
+                    println("nil loc")
+                }
                 
-                let latitude = "\(currentLocation.coordinate.latitude)"
-                let longitude = "\(currentLocation.coordinate.longitude)"
-                println(longitude + ", " + latitude)
-                let ll: String = longitude + "," + latitude
-                let api = FourSquareAPI()
-                api.searchVenues(didSearchVenues, ll: ll)
             } else {
-                println("nil loc")
+                println("location not authorized")
             }
             
-        } else {
-            println("location not authorized")
-        }
     }
 
 
@@ -180,14 +187,28 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
             cell.locationLabel!.text = venue.country
             //println(venue.name)
             //println("it passed- country")
-            println(cell.locationLabel!.text)
+            //println(cell.locationLabel!.text)
         }
         cell.typeLabel!.text = venue.category
-        cell.priceLabel!.text = "•  " + venue.priceTier
+        if venue.priceTier == "" {
+            cell.priceLabel!.text = ""
+        } else {
+            cell.priceLabel!.text = "•  " + venue.priceTier
+        }
+        
         let realm = Realm()
         var posts = realm.objects(Post).filter("id = '\(venue.id!)'")
+        println(posts)
         if posts.count > 0 {
-            cell.canAdd = false
+            for object in posts{
+                if venue.id == object.id {
+                    println(venue.name)
+                    cell.canAdd = false
+                }
+            }
+            
+            //println(venue.name)
+            //println(venue.id)
         }
         //cell.idLabel!.text = venue.id
         cell.venue = venue

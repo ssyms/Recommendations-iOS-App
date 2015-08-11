@@ -67,7 +67,6 @@ class Venue{
         if let newData: AnyObject = data["featuredPhotos"]{
             let info = accessCat(newData as! NSDictionary, key: "items", key2: key)
             if info.isEmpty {
-                println("if statement")
                 if let newData: AnyObject = data["categories"]{
                     if let response = newData[0] as? [String: AnyObject] {
                         if let info = response[key] as? String {

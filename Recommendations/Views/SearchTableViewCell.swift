@@ -53,10 +53,6 @@ class SearchTableViewCell: UITableViewCell {
 
     var canAdd: Bool? = true {
         didSet {
-            /*
-            Change the state of the follow button based on whether or not
-            it is possible to follow a user.
-            */
             if let canAdd = canAdd {
                 addButton.selected = !canAdd
             }
