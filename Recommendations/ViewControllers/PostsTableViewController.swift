@@ -72,8 +72,10 @@ class PostsTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowVenueDetails") {
+            if let cell = sender as? PostTableViewCell {
             let venueViewController = segue.destinationViewController as! VenueViewController
-            venueViewController.post = selectedPost
+            venueViewController.post = cell.post
+            }
         }
     }
     

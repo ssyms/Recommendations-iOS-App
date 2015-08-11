@@ -17,6 +17,7 @@ class FourSquareAPI {
         println(ll)
         var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         
+        
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
         
@@ -26,7 +27,6 @@ class FourSquareAPI {
             if err != nil {
                 println(err.localizedDescription)
             } else {
-                println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
                     var venues = [Venue]()

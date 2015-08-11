@@ -19,10 +19,10 @@ import RealmSwift
 import CoreLocation
 
 class SearchTableViewController: UITableViewController, CLLocationManagerDelegate {
-
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var locManager = CLLocationManager()
+    var locManager : CLLocationManager!
     
     var venues: [Venue]!
     
@@ -35,13 +35,13 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
             tableView.reloadData()
         }
     }
-
-
+    
+    
     enum State {
         case DefaultMode
         case SearchMode
     }
-
+    
     
     // whenever the state changes, perform one of the two queries and update the list
     var state: State = .DefaultMode {
@@ -57,10 +57,10 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
                 //let api = FourSquareAPI()
                 //api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
                 //searchView()
-                }
+            }
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +71,9 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         //var currentLocation = CLLocation!
         
         /*if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse){
-                
-                currentLocation = locManager.location
-                
+        
+        currentLocation = locManager.location
+        
         }*/
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -84,73 +84,65 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
     
     func loadInitialData() {
         venues = [Venue]()
-        locManager.requestWhenInUseAuthorization()
+        locManager = CLLocationManager()
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager(locManager, didChangeAuthorizationStatus: CLLocationManager.authorizationStatus())
-        
-        
+        locManager.requestWhenInUseAuthorization()
+        locManager.startUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus){
-            if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
-            {
-                locManager.startUpdatingLocation()
-                if let currentLocation : CLLocation = locManager.location {
-                    
-                    let latitude = "\(currentLocation.coordinate.latitude)"
-                    let longitude = "\(currentLocation.coordinate.longitude)"
-                    println(longitude + ", " + latitude)
-                    let ll: String = longitude + "," + latitude
-                    let api = FourSquareAPI()
-                    api.searchVenues(didSearchVenues, ll: ll)
-                } else {
-                    println("nil loc")
-                }
-                
-            } else {
-                println("location not authorized")
-            }
-            
-    }
-
-
-   func didSearchVenues(venues: [Venue]){
-        self.venues = venues
-        tableView.reloadData()
-    }
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         
-    /*func searchView(){
-        super.viewDidLoad()
-        let searchText = searchBar?.text ?? ""
-        venues = [Venue]()
-        locManager.requestWhenInUseAuthorization()
-        locManager.delegate = self
-        locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.startUpdatingLocation()
-        
-        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
-        {
-            if let currentLocation : CLLocation = locManager.location {
+        if self.venues.isEmpty {
+            if let currentLocation : CLLocation = manager.location {
                 
-               let latitude = "\(currentLocation.coordinate.latitude)"
-               let longitude = "\(currentLocation.coordinate.longitude)"
+                let latitude = "\(currentLocation.coordinate.latitude)"
+                let longitude = "\(currentLocation.coordinate.longitude)"
                 println(longitude + ", " + latitude)
-                let ll: String = longitude + "," + latitude
+                let ll: String = latitude + "," + longitude
                 let api = FourSquareAPI()
-                api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+                api.searchVenues(didSearchVenues, ll: ll)
             } else {
                 println("nil loc")
             }
-            
-        } else {
-            println("location not authorized")
         }
-
-        
+    }
+    
+    
+    func didSearchVenues(venues: [Venue]){
+        self.venues = venues
+        tableView.reloadData()
+    }
+    
+    /*func searchView(){
+    super.viewDidLoad()
+    let searchText = searchBar?.text ?? ""
+    venues = [Venue]()
+    locManager.requestWhenInUseAuthorization()
+    locManager.delegate = self
+    locManager.desiredAccuracy = kCLLocationAccuracyBest
+    locManager.startUpdatingLocation()
+    
+    if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+    CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
+    {
+    if let currentLocation : CLLocation = locManager.location {
+    
+    let latitude = "\(currentLocation.coordinate.latitude)"
+    let longitude = "\(currentLocation.coordinate.longitude)"
+    println(longitude + ", " + latitude)
+    let ll: String = longitude + "," + latitude
+    let api = FourSquareAPI()
+    api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+    } else {
+    println("nil loc")
+    }
+    
+    } else {
+    println("location not authorized")
+    }
+    
+    
     }*/
     
     override func didReceiveMemoryWarning() {
@@ -199,6 +191,7 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         let realm = Realm()
         var posts = realm.objects(Post).filter("id = '\(venue.id!)'")
         println(posts)
+         cell.canAdd = true
         if posts.count > 0 {
             for object in posts{
                 if venue.id == object.id {
@@ -215,7 +208,7 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         cell.delegate = self
         return cell
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venues.count
         
@@ -254,7 +247,7 @@ extension SearchTableViewController: UISearchBarDelegate {
                 let ll: String = longitude + "," + latitude
                 let api = FourSquareAPI()
                 if searchBar.text.isEmpty == false {
-                api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+                    api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
                 } else {
                     loadInitialData()
                 }
@@ -266,7 +259,7 @@ extension SearchTableViewController: UISearchBarDelegate {
         } else {
             println("location not authorized")
         }
-
+        
     }
     
 }
@@ -284,81 +277,81 @@ extension SearchTableViewController: SearchTableViewCellDelegate {
 }
 
 /*extension SearchTableViewController: UITableViewDataSource {
-        
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let cell = searchTableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
-            
-            let row = indexPath.row
-            cell.venueLabel.text = "Fake Venue"
-            cell.locationLabel.text = "SF"
-            cell.priceLabel.text = "$$$"
-            cell.typeLabel.text = "Desert"
-            
-            return cell
-        }
-        
-        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 5
-            
-        }
-        
-        
+
+override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+let cell = searchTableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell //1
+
+let row = indexPath.row
+cell.venueLabel.text = "Fake Venue"
+cell.locationLabel.text = "SF"
+cell.priceLabel.text = "$$$"
+cell.typeLabel.text = "Desert"
+
+return cell
+}
+
+override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+return 5
+
+}
+
+
 }*/
 
-    /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // #warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0
-    }*/
-    
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-    // Configure the cell...
-    return cell
-    }
-    */
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
+/*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// #warning Incomplete method implementation.
+// Return the number of rows in the section.
+return 0
+}*/
+
+/*
+override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+// Configure the cell...
+return cell
+}
+*/
+
+/*
+// Override to support conditional editing of the table view.
+override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+// Return NO if you do not want the specified item to be editable.
+return true
+}
+*/
+
+/*
+// Override to support editing the table view.
+override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+if editingStyle == .Delete {
+// Delete the row from the data source
+tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+} else if editingStyle == .Insert {
+// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+}
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+// Return NO if you do not want the item to be re-orderable.
+return true
+}
+*/
+
+/*
+// MARK: - Navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+// Get the new view controller using [segue destinationViewController].
+// Pass the selected object to the new view controller.
+}
+*/
+
