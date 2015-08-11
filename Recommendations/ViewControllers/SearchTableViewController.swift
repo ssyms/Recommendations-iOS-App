@@ -23,7 +23,7 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
     @IBOutlet weak var searchBar: UISearchBar!
     
     var locManager : CLLocationManager!
-    
+    var currentLL: String!
     var venues: [Venue]!
     
     var AddedVenues: [Venue]? {
@@ -99,9 +99,9 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
                 let latitude = "\(currentLocation.coordinate.latitude)"
                 let longitude = "\(currentLocation.coordinate.longitude)"
                 println(longitude + ", " + latitude)
-                let ll: String = latitude + "," + longitude
+                self.currentLL = latitude + "," + longitude
                 let api = FourSquareAPI()
-                api.searchVenues(didSearchVenues, ll: ll)
+                api.searchVenues(didSearchVenues, ll: self.currentLL)
             } else {
                 println("nil loc")
             }
@@ -231,35 +231,13 @@ extension SearchTableViewController: UISearchBarDelegate {
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        locManager.requestWhenInUseAuthorization()
-        locManager.delegate = self
-        locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.startUpdatingLocation()
         
-        if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
-        {
-            if let currentLocation : CLLocation = locManager.location {
-                
-                let latitude = "\(currentLocation.coordinate.latitude)"
-                let longitude = "\(currentLocation.coordinate.longitude)"
-                println(longitude + ", " + latitude)
-                let ll: String = longitude + "," + latitude
                 let api = FourSquareAPI()
                 if searchBar.text.isEmpty == false {
-                    api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
+                    api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: self.currentLL)
                 } else {
                     loadInitialData()
                 }
-                
-            } else {
-                println("nil loc")
-            }
-            
-        } else {
-            println("location not authorized")
-        }
-        
     }
     
 }

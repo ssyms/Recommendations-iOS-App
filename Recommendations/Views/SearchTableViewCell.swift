@@ -74,7 +74,11 @@ class SearchTableViewCell: UITableViewCell {
             addedPost.type = priceLabel.text!
             addedPost.price = typeLabel.text!
             addedPost.id = venue!.id!
-            addedPost.imageUrl = venue!.imageUrl!
+            if venue!.imageUrl == nil {
+                addedPost.imageUrl = ""
+            } else {
+                addedPost.imageUrl = venue!.imageUrl!
+            }
             addedPost.address = venue!.address!
             //addedPost.rating = venue!.rating!
             

@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Recommendations/Views/SearchTableViewCell.swift"
-            timestampString = "461007989.064729"
+            timestampString = "461023149.31318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "addButtonTapped(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Recommendations/ViewControllers/SearchTableViewController.swift"
-            timestampString = "461021324.96597"
+            timestampString = "461022501.625025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "SearchTableViewController"
             landmarkType = "3">
          </BreakpointContent>

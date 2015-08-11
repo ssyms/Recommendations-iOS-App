@@ -15,7 +15,7 @@ class FourSquareAPI {
     func searchVenues (completion: (([Venue]) -> Void)!, ll: String) {
         println("searchVenues active")
         println(ll)
-        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259,4d4b7105d754a06376d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         
         
         let session = NSURLSession.sharedSession()
@@ -81,7 +81,7 @@ class FourSquareAPI {
     func searchVenuesWithQuery (completion: (([Venue]) -> Void)!, query: String, ll: String) {
         println("searchVenuesWithQuery active")
         let urlQuery = query.stringByReplacingOccurrencesOfString(" ", withString: "_")
-        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
+        var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259,4d4b7105d754a06376d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
         
         let session = NSURLSession.sharedSession()
         let searchURL = NSURL(string: urlString)
