@@ -60,9 +60,9 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
         let locationString = post?.location
         let formatLoc = addressString! + ", " + locationString!
         let typeString = post?.price
-        let emailString = "Check out this awesome place: \n" + venueString! + " • " + typeString! + " • " + formatLoc
-        mailComposerVC.setSubject("Have a Bite")
-        mailComposerVC.setMessageBody(emailString, isHTML: false)
+        let emailString = "<h4><font face='tahoma'>Check out this awesome place!</font></h4><h2>" + venueString! + "</h2> " + typeString! + " • " + formatLoc
+        mailComposerVC.setSubject("Try a Bite!")
+        mailComposerVC.setMessageBody(emailString, isHTML: true)
         
         return mailComposerVC
     }
