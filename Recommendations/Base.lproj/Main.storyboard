@@ -9,7 +9,7 @@
         <scene sceneID="1VS-AR-h6g">
             <objects>
                 <tableViewController id="zRp-K2-1m6" userLabel="Dashboard" customClass="PostsTableViewController" customModule="Recommendations" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="5ka-mH-eSX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="5ka-mH-eSX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,7 +83,6 @@
                                     <outlet property="typeLabel" destination="iGB-MQ-xsm" id="IE1-Mz-jVJ"/>
                                     <outlet property="venueImage" destination="UUY-nE-DXr" id="rmA-uf-0gF"/>
                                     <outlet property="venueLabel" destination="aX8-Q7-gLF" id="euf-RA-oh0"/>
-                                    <segue destination="Lgn-Bs-tKb" kind="show" identifier="ShowVenueDetails" id="oaj-qx-aNU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -103,11 +102,12 @@
                         <outlet property="myTableView" destination="5ka-mH-eSX" id="kD1-qb-TtY"/>
                         <outlet property="shareButton" destination="QJl-Cn-DqE" id="8P3-Lc-P6u"/>
                         <segue destination="lY9-5d-1v7" kind="show" id="yhx-ec-fpc"/>
+                        <segue destination="Lgn-Bs-tKb" kind="show" identifier="ShowVenueDetails" id="ZYN-ze-4IA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HtV-1F-kXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-156" y="-559"/>
+            <point key="canvasLocation" x="19" y="-539"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="zkJ-HH-u0Z">

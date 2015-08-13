@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Hi! Can I please access your location to find delicious eateries in your area?</string>
+	<string>Hi! Can I please access your location to find delicious eateries and awesome attractions in your area?</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

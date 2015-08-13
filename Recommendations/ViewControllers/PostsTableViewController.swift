@@ -15,7 +15,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     @IBOutlet var myTableView: UITableView!
     
     var selectedPost: Post?
-    
+    var emailPost: Post?
     var posts: Results<Post>! {
         didSet {
             // Whenever posts update, update the table view
@@ -24,14 +24,17 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     }
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    
     @IBAction func shareButtonTapped(sender: AnyObject) {
         println("share button tapped")
-        let mailComposeViewController = configuredMailComposeViewController()
-        if MFMailComposeViewController.canSendMail() {
-            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
-        } else {
-            self.showSendMailErrorAlert()
-        }
+        //        let mailComposeViewController = configuredMailComposeViewController()
+        //        if MFMailComposeViewController.canSendMail() {
+        //            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        //        } else {
+        //            self.showSendMailErrorAlert()
+        //        }
+        
+        tableView.editing = !tableView.editing
     }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
@@ -59,26 +62,26 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         if let identifier = segue.identifier {
             let realm = Realm()
             switch identifier {
-                case "Done":
-                    //println("No one loves \(identifier)")
-                    posts = realm.objects(Post).sorted("venue", ascending: true)
+            case "Done":
+                //println("No one loves \(identifier)")
+                posts = realm.objects(Post).sorted("venue", ascending: true)
                 /*case "Cancel":
-                    realm.write() {
-                        realm.delete(self.selectedPost!)
-                    }
+                realm.write() {
+                realm.delete(self.selectedPost!)
+                }
                 
-                    let source = segue.sourceViewController as! SearchTableViewController
-                    source.post = nil;*/
-        
-                default:
-                    println("No one loves \(identifier)")
+                let source = segue.sourceViewController as! SearchTableViewController
+                source.post = nil;*/
+                
+            default:
+                println("No one loves \(identifier)")
             }
             
-             //2
-           // realm.write() {
-               // realm.add(source.currentPost!)
-          //  }
-
+            //2
+            // realm.write() {
+            // realm.add(source.currentPost!)
+            //  }
+            
         }
     }
     
@@ -92,6 +95,9 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         tableView.delegate = self
         let realm = Realm()
         posts = realm.objects(Post).sorted("venue", ascending: true)
+        
+        tableView.allowsSelectionDuringEditing = true
+        tableView.allowsMultipleSelection = true
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -108,8 +114,8 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ShowVenueDetails") {
             if let cell = sender as? PostTableViewCell {
-            let venueViewController = segue.destinationViewController as! VenueViewController
-            venueViewController.post = cell.post
+                let venueViewController = segue.destinationViewController as! VenueViewController
+                venueViewController.post = cell.post
             }
         }
     }
@@ -205,8 +211,17 @@ extension PostsTableViewController: UITableViewDataSource {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedPost = posts[indexPath.row]      //1
-        //self.performSegueWithIdentifier("ShowVenueDetails", sender: self)     //2
+        selectedPost = posts[indexPath.row]
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if tableView.editing == false {
+            self.performSegueWithIdentifier("ShowVenueDetails", sender: self)
+        }
+        
+        if let indexPaths = tableView.indexPathsForSelectedRows() as? [NSIndexPath] {
+            for indexPath in indexPaths {
+                println(indexPath)
+            }
+        }
     }
     
     // 3
@@ -228,6 +243,6 @@ extension PostsTableViewController: UITableViewDataSource {
             posts = realm.objects(Post).sorted("venue", ascending: true)
         }
     }
-
+    
     
 }
