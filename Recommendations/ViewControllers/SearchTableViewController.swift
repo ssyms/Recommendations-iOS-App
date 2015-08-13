@@ -64,7 +64,9 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let logo = UIImage(named: "logo2.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
         
         loadInitialData()
         

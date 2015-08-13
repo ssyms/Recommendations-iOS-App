@@ -81,7 +81,7 @@
                             <outlet property="delegate" destination="zRp-K2-1m6" id="Pdi-gK-6kB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Lists" id="3oI-Ug-VPF">
+                    <navigationItem key="navigationItem" id="3oI-Ug-VPF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cqW-cY-dBm">
                             <connections>
                                 <segue destination="2bh-k9-Ht8" kind="show" identifier="AddVenue" id="xGy-Vy-CdE"/>
@@ -97,7 +97,7 @@
             </objects>
             <point key="canvasLocation" x="-64" y="-251"/>
         </scene>
-        <!--Add Venue-->
+        <!--Search Table View Controller-->
         <scene sceneID="zkJ-HH-u0Z">
             <objects>
                 <tableViewController id="2bh-k9-Ht8" customClass="SearchTableViewController" customModule="Recommendations" customModuleProvider="target" sceneMemberID="viewController">
@@ -198,7 +198,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Add Venue" id="gJj-Dk-GkM">
+                    <navigationItem key="navigationItem" id="gJj-Dk-GkM">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6hl-aB-4jQ">
                             <connections>
                                 <segue destination="Xde-iF-qqv" kind="unwind" identifier="Cancel" unwindAction="unwindToSegue:" id="ehd-Zq-IjN"/>

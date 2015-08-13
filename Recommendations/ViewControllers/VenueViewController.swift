@@ -22,6 +22,9 @@ class VenueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let logo = UIImage(named: "logo2.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
         displayPost(post)
     }
     
