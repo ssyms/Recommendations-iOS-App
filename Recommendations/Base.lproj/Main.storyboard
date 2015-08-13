@@ -13,6 +13,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="TAY-wR-9vG">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem title="Item" id="QJl-Cn-DqE">
+                                    <connections>
+                                        <action selector="shareButtonTapped:" destination="zRp-K2-1m6" id="vwV-OK-GcC"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="80" id="gxV-ku-qMk" customClass="PostTableViewCell" customModule="Recommendations" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -90,6 +101,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="myTableView" destination="5ka-mH-eSX" id="kD1-qb-TtY"/>
+                        <outlet property="shareButton" destination="QJl-Cn-DqE" id="8P3-Lc-P6u"/>
                         <segue destination="lY9-5d-1v7" kind="show" id="yhx-ec-fpc"/>
                     </connections>
                 </tableViewController>
@@ -254,7 +266,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TYPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58L-V9-w4r">
-                                <rect key="frame" x="19" y="506" width="43" height="74"/>
+                                <rect key="frame" x="19" y="506" width="43" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -277,18 +289,31 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e23-cu-zbE">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Item" id="o4k-ak-fC6">
+                                        <connections>
+                                            <action selector="shareButtonTapped:" destination="Lgn-Bs-tKb" id="2e9-ly-vRR"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="58L-V9-w4r" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="3" id="25n-jh-qqx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w7r-g3-jhJ" secondAttribute="trailing" constant="5" id="58Y-Ed-chj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="e23-cu-zbE" secondAttribute="trailing" constant="-16" id="9BS-Og-GTN"/>
                             <constraint firstItem="9DG-IQ-adJ" firstAttribute="top" secondItem="w7r-g3-jhJ" secondAttribute="bottom" constant="5" id="AAK-km-Rym"/>
                             <constraint firstItem="zf8-zt-u3w" firstAttribute="top" secondItem="n2z-Ii-T9i" secondAttribute="bottom" constant="5" id="ESy-Pg-GKp"/>
                             <constraint firstItem="db4-pq-CjO" firstAttribute="top" secondItem="xk7-w2-hcP" secondAttribute="bottom" id="Jvn-T5-fl8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="db4-pq-CjO" secondAttribute="trailing" constant="-16" id="K7M-5v-Ggc"/>
+                            <constraint firstItem="e23-cu-zbE" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="-16" id="Qwt-Nb-nlq"/>
                             <constraint firstItem="w7r-g3-jhJ" firstAttribute="top" secondItem="db4-pq-CjO" secondAttribute="bottom" constant="5" id="ZVV-vx-yp9"/>
                             <constraint firstItem="n2z-Ii-T9i" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="3" id="bDc-19-X1w"/>
                             <constraint firstItem="db4-pq-CjO" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="-16" id="dO6-jV-tsn"/>
+                            <constraint firstItem="N6y-M8-txX" firstAttribute="top" secondItem="e23-cu-zbE" secondAttribute="bottom" id="fgd-Wy-F7r"/>
                             <constraint firstItem="9DG-IQ-adJ" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="3" id="hvW-Qe-UCQ"/>
                             <constraint firstItem="58L-V9-w4r" firstAttribute="top" secondItem="n2z-Ii-T9i" secondAttribute="bottom" constant="5" id="kdP-Dg-oeI"/>
                             <constraint firstItem="zf8-zt-u3w" firstAttribute="leading" secondItem="58L-V9-w4r" secondAttribute="trailing" constant="5" id="mCg-ke-u4V"/>
@@ -301,6 +326,7 @@
                         <outlet property="countryLabel" destination="n2z-Ii-T9i" id="7Xf-A0-7X7"/>
                         <outlet property="priceTierLabel" destination="58L-V9-w4r" id="nTq-JO-uPG"/>
                         <outlet property="ratingLabel" destination="2E5-1T-WE8" id="bEn-dg-lbV"/>
+                        <outlet property="shareButton" destination="o4k-ak-fC6" id="Lje-Ba-aV6"/>
                         <outlet property="typeLabel" destination="zf8-zt-u3w" id="mn0-v8-C9k"/>
                         <outlet property="venueImage" destination="db4-pq-CjO" id="bBK-Dk-Jzs"/>
                         <outlet property="venueLabel" destination="w7r-g3-jhJ" id="54s-uR-TBN"/>
@@ -308,7 +334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Znt-3c-a76" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-131" y="-1018"/>
+            <point key="canvasLocation" x="43" y="-1226"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oqD-5d-sGo">

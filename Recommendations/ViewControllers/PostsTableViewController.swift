@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import MessageUI
 
-class PostsTableViewController: UITableViewController {
+class PostsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet var myTableView: UITableView!
     
@@ -20,6 +21,37 @@ class PostsTableViewController: UITableViewController {
             // Whenever posts update, update the table view
             myTableView?.reloadData()
         }
+    }
+    
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBAction func shareButtonTapped(sender: AnyObject) {
+        println("share button tapped")
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients(["someone@somewhere.com"])
+        mailComposerVC.setSubject("Check out these awesome places!")
+        let newString = "an example string"
+        mailComposerVC.setMessageBody(newString, isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func unwindToSegue(segue: UIStoryboardSegue) {

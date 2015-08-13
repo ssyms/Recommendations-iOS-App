@@ -9,8 +9,9 @@
 import UIKit
 import RealmSwift
 import Foundation
+import MessageUI
 
-class VenueViewController: UIViewController {
+class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var venueImage: UIImageView!
     @IBOutlet weak var venueLabel: UILabel!
@@ -19,6 +20,7 @@ class VenueViewController: UIViewController {
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var priceTierLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,40 @@ class VenueViewController: UIViewController {
         didSet {
             displayPost(post)
         }
+    }
+    
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
+    
+    
+    @IBAction func shareButtonTapped(sender: AnyObject) {
+        println("share button tapped")
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients([""])
+        let emailString = post?.venue
+        mailComposerVC.setSubject("Check out these awesome places!")
+        mailComposerVC.setMessageBody(emailString, isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
