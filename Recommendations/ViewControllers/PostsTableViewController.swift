@@ -24,13 +24,17 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     }
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    
+
     @IBOutlet weak var share2Button: UIBarButtonItem!
     
+    @IBOutlet weak var cancelEmaiList: UIBarButtonItem!
     @IBAction func shareButtonTapped(sender: AnyObject) {
         shareButton.enabled = false
         shareButton.title = nil
         share2Button.enabled = true
+        share2Button.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Marker Felt", size: 20)!], forState: UIControlState.Normal)
+        cancelEmaiList.enabled = true
+        cancelEmaiList.title = "Cancel"
         share2Button.title = "Email List"
         
         tableView.editing = !tableView.editing
@@ -40,6 +44,21 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         shareButton.title = "Share Your Favorites Bites!"
         share2Button.enabled = false
         share2Button.title = nil
+        if let indexPaths = tableView.indexPathsForSelectedRows() as? [NSIndexPath] {
+            for item in indexPaths {
+                let row = item.row
+                var post = posts[row] as Post
+                println(row)
+                var emailPost = Post()
+                emailPost.venue = post.venue
+                emailPost.location = post.location
+                emailPost.address = post.address
+                emailPost.type = post.price
+                println(post.price)
+                emailList.append(emailPost)
+            }
+        }
+
         tableView.editing = false
         let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
@@ -49,6 +68,14 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
             }
     }
     
+    @IBAction func CancelEmailListButtonTapped(sender: AnyObject) {
+        
+        tableView.editing = false
+        share2Button.enabled = false
+        share2Button.title = nil
+        shareButton.enabled = true
+        shareButton.title = "Share Your Favorites Bites!"
+    }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
@@ -58,20 +85,18 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         var emailString = "<h4><font face='tahoma'>Check out these awesome places!</font></h4>"
         for item in emailList {
             var venueString = item.venue
-            println(item.venue)
-            item.venue = ""
             var addressString = item.address
             var locationString = item.location
             var formatLoc = addressString + ", " + locationString
-            var typeString = item.price
+            var typeString = item.type
+            println(item.venue)
+            println(item.type)
             var completeVenue = "<h2>" + venueString + "</h2> " + typeString + " • " + formatLoc
-            venueString = ""
-            addressString = ""
-            locationString = ""
             emailString = emailString + completeVenue
         }
         mailComposerVC.setMessageBody(emailString, isHTML: true)
-        
+        emailString = ""
+        emailList.removeAll()
         return mailComposerVC
     }
     
@@ -106,8 +131,11 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         self.navigationItem.titleView = imageView
         
         shareButton.title = "Share Your Favorites Bites!"
+        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Marker Felt", size: 20)!], forState: UIControlState.Normal)
         share2Button.enabled = false
         share2Button.title = nil
+        cancelEmaiList.enabled = false
+        cancelEmaiList.title = nil
         tableView.dataSource = self
         tableView.delegate = self
         let realm = Realm()
@@ -234,20 +262,7 @@ extension PostsTableViewController: UITableViewDataSource {
         if tableView.editing == false {
             self.performSegueWithIdentifier("ShowVenueDetails", sender: cell)
         }
-        
-        if let indexPaths = tableView.indexPathsForSelectedRows() as? [NSIndexPath] {
-            for item in indexPaths {
-                let row = item.row
-                var post = posts[row] as Post
-                var emailPost = Post()
-                emailPost.venue = post.venue
-                emailPost.location = post.location
-                emailPost.address = post.address
-                emailPost.type = post.type
-                emailList.append(emailPost)
-                
-            }
-        }
+        var count = 0
     }
     
     // 3

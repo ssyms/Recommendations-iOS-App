@@ -30,11 +30,13 @@ class SearchTableViewCell: UITableViewCell {
             venueLabel.text = venue?.name
             
             venueImage.image = nil
-            
             if let urlString = venue!.imageUrl {
                 if let url = NSURL(string: urlString) {
                         venueImage.sd_setImageWithURL(url, placeholderImage: nil)
                 }
+            }
+            if venueImage.image == nil {
+                venueImage.image = UIImage(named: "fillerImage.png")
             }
         }
     }

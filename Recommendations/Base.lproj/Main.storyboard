@@ -17,6 +17,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="Zu8-9c-XQx"/>
                                 <barButtonItem title="Share1" id="Ifx-c2-pOm">
                                     <connections>
                                         <action selector="shareButtonTapped:" destination="zRp-K2-1m6" id="Sh9-Pf-Wy6"/>
@@ -27,6 +28,7 @@
                                         <action selector="share2ButtonTapped:" destination="zRp-K2-1m6" id="WCw-Gh-jJ1"/>
                                     </connections>
                                 </barButtonItem>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="LSo-We-rGy"/>
                             </items>
                         </toolbar>
                         <prototypes>
@@ -97,6 +99,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="3oI-Ug-VPF">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="CAV-Kf-lZa">
+                            <connections>
+                                <action selector="CancelEmailListButtonTapped:" destination="zRp-K2-1m6" id="blf-M0-ETZ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cqW-cY-dBm">
                             <connections>
                                 <segue destination="2bh-k9-Ht8" kind="show" identifier="AddVenue" id="xGy-Vy-CdE"/>
@@ -104,6 +111,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelEmaiList" destination="CAV-Kf-lZa" id="GQc-98-TpY"/>
                         <outlet property="myTableView" destination="5ka-mH-eSX" id="kD1-qb-TtY"/>
                         <outlet property="share2Button" destination="ol9-1n-mwe" id="CqS-MB-3dV"/>
                         <outlet property="shareButton" destination="Ifx-c2-pOm" id="ZOg-8R-dg3"/>
@@ -277,14 +285,16 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e23-cu-zbE">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e23-cu-zbE">
+                                <rect key="frame" x="0.0" y="556" width="600" height="124"/>
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DyH-DC-A61"/>
                                     <barButtonItem title="Item" id="o4k-ak-fC6">
                                         <connections>
                                             <action selector="shareButtonTapped:" destination="Lgn-Bs-tKb" id="2e9-ly-vRR"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="F7y-2Q-PJy"/>
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRICE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf8-zt-u3w">
@@ -294,7 +304,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="db4-pq-CjO">
-                                <rect key="frame" x="0.0" y="64" width="600" height="325"/>
+                                <rect key="frame" x="0.0" y="140" width="600" height="224"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -29,6 +29,9 @@ class PostTableViewCell: UITableViewCell {
                 if let url = NSURL(string: urlString) {
                     self.venueImage.sd_setImageWithURL(url, placeholderImage: nil)
                 }
+                if venueImage.image == nil {
+                    venueImage.image = UIImage(named: "fillerImage.png")
+                }
 
             }
         }
