@@ -70,7 +70,6 @@ class Venue{
                 if let newData: AnyObject = data["categories"]{
                     if let response = newData[0] as? [String: AnyObject] {
                         if let info = response[key] as? String {
-                            println(info)
                             return info
                         } else {
                             return info

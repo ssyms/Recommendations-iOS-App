@@ -42,7 +42,6 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     
     @IBAction func shareButtonTapped(sender: AnyObject) {
-        println("share button tapped")
         let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
             self.presentViewController(mailComposeViewController, animated: true, completion: nil)

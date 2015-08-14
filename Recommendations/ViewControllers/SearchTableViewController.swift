@@ -51,12 +51,7 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
                 loadInitialData()
                 
             case .SearchMode:
-                println("search")
-                let searchText = "ountry"
-                let ll: String = "-77,40.7"
-                //let api = FourSquareAPI()
-                //api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
-                //searchView()
+                loadInitialData()
             }
         }
     }
@@ -100,7 +95,6 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
                 
                 let latitude = "\(currentLocation.coordinate.latitude)"
                 let longitude = "\(currentLocation.coordinate.longitude)"
-                println(longitude + ", " + latitude)
                 self.currentLL = latitude + "," + longitude
                 let api = FourSquareAPI()
                 api.searchVenues(didSearchVenues, ll: self.currentLL)
@@ -115,37 +109,6 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         self.venues = venues
         tableView.reloadData()
     }
-    
-    /*func searchView(){
-    super.viewDidLoad()
-    let searchText = searchBar?.text ?? ""
-    venues = [Venue]()
-    locManager.requestWhenInUseAuthorization()
-    locManager.delegate = self
-    locManager.desiredAccuracy = kCLLocationAccuracyBest
-    locManager.startUpdatingLocation()
-    
-    if   (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-    CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways)
-    {
-    if let currentLocation : CLLocation = locManager.location {
-    
-    let latitude = "\(currentLocation.coordinate.latitude)"
-    let longitude = "\(currentLocation.coordinate.longitude)"
-    println(longitude + ", " + latitude)
-    let ll: String = longitude + "," + latitude
-    let api = FourSquareAPI()
-    api.searchVenuesWithQuery(didSearchVenues, query: searchText, ll: ll)
-    } else {
-    println("nil loc")
-    }
-    
-    } else {
-    println("location not authorized")
-    }
-    
-    
-    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -166,22 +129,13 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         let venue = venues[indexPath.row]
         cell.venueLabel!.text = venue.name
         if venue.city.isEmpty == false && venue.state.isEmpty == false {
-            //println(venue.name)
-            //println("it passed- city and state")
             cell.locationLabel!.text = venue.city + ", " + venue.state
         } else if venue.country.isEmpty == false &&  venue.city.isEmpty == false {
-            //println(venue.name)
-            //println("city and country")
             cell.locationLabel!.text = venue.city + ", " + venue.country
         } else if venue.country.isEmpty == false &&  venue.state.isEmpty == false {
-            //println(venue.name)
-            //println("city and country")
             cell.locationLabel!.text = venue.state + ", " + venue.country
         } else {
             cell.locationLabel!.text = venue.country
-            //println(venue.name)
-            //println("it passed- country")
-            //println(cell.locationLabel!.text)
         }
         cell.typeLabel!.text = venue.category
         if venue.priceTier == "" {
@@ -192,18 +146,13 @@ class SearchTableViewController: UITableViewController, CLLocationManagerDelegat
         
         let realm = Realm()
         var posts = realm.objects(Post).filter("id = '\(venue.id!)'")
-        println(posts)
          cell.canAdd = true
         if posts.count > 0 {
             for object in posts{
                 if venue.id == object.id {
-                    println(venue.name)
                     cell.canAdd = false
                 }
             }
-            
-            //println(venue.name)
-            //println(venue.id)
         }
         //cell.idLabel!.text = venue.id
         cell.venue = venue

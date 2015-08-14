@@ -28,7 +28,6 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     @IBOutlet weak var share2Button: UIBarButtonItem!
     
     @IBAction func shareButtonTapped(sender: AnyObject) {
-        println("share button tapped")
         shareButton.enabled = false
         shareButton.title = nil
         share2Button.enabled = true
@@ -56,14 +55,19 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients([""])
         mailComposerVC.setSubject("Try some bites!")
-        var emailString = "<h4><font face='tahoma'>Check out this awesome place!</font></h4>"
-        for venue in emailList {
-            let venueString = venue.venue
-            let addressString = venue.address
-            let locationString = venue.location
-            let formatLoc = addressString + ", " + locationString
-            let typeString = venue.price
-            let completeVenue = "<h2>" + venueString + "</h2> " + typeString + " • " + formatLoc
+        var emailString = "<h4><font face='tahoma'>Check out these awesome places!</font></h4>"
+        for item in emailList {
+            var venueString = item.venue
+            println(item.venue)
+            item.venue = ""
+            var addressString = item.address
+            var locationString = item.location
+            var formatLoc = addressString + ", " + locationString
+            var typeString = item.price
+            var completeVenue = "<h2>" + venueString + "</h2> " + typeString + " • " + formatLoc
+            venueString = ""
+            addressString = ""
+            locationString = ""
             emailString = emailString + completeVenue
         }
         mailComposerVC.setMessageBody(emailString, isHTML: true)
@@ -86,25 +90,11 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
             let realm = Realm()
             switch identifier {
             case "Done":
-                //println("No one loves \(identifier)")
                 posts = realm.objects(Post).sorted("venue", ascending: true)
-                /*case "Cancel":
-                realm.write() {
-                realm.delete(self.selectedPost!)
-                }
-                
-                let source = segue.sourceViewController as! SearchTableViewController
-                source.post = nil;*/
                 
             default:
-                println("No one loves \(identifier)")
+                posts = realm.objects(Post).sorted("venue", ascending: true)
             }
-            
-            //2
-            // realm.write() {
-            // realm.add(source.currentPost!)
-            //  }
-            
         }
     }
     
@@ -241,15 +231,14 @@ extension PostsTableViewController: UITableViewDataSource {
         selectedPost = posts[indexPath.row]
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         if tableView.editing == false {
-            self.performSegueWithIdentifier("ShowVenueDetails", sender: self)
+            self.performSegueWithIdentifier("ShowVenueDetails", sender: cell)
         }
         
         if let indexPaths = tableView.indexPathsForSelectedRows() as? [NSIndexPath] {
-            for indexPath in indexPaths {
-                
-                let row = indexPath.row
-                let post = posts[row] as Post
-                let emailPost = Post()
+            for item in indexPaths {
+                let row = item.row
+                var post = posts[row] as Post
+                var emailPost = Post()
                 emailPost.venue = post.venue
                 emailPost.location = post.location
                 emailPost.address = post.address

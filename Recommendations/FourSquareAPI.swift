@@ -13,8 +13,6 @@ class FourSquareAPI {
     let CLIENT_SECRET = "YAYW3VGX04GSK0Z0B5WSYWOFIR21WBBOJ2TIUI1COQUO4UM5"
     
     func searchVenues (completion: (([Venue]) -> Void)!, ll: String) {
-        println("searchVenues active")
-        println(ll)
         var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259,4d4b7105d754a06376d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728"
         
         
@@ -40,20 +38,7 @@ class FourSquareAPI {
 
                                 }
                                 
-                                /*if let item = venuesData[0] as? [[String: AnyObject]] {
-                                println(item)
-                                for item in item{
-                                //println(item)
-                                let venue = Venue(data: item)
-                                venues.append(venue)
-                                println(venue.name)
-                                }
-                                }
-                                for venueData in venuesData {
-                                let venue = Venue(data: venueData)
-                                venues.append(venue)
-                                }*/
-                                
+                        
                                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                                 dispatch_async(dispatch_get_global_queue(priority, 0)){
                                     dispatch_async(dispatch_get_main_queue()){
@@ -79,7 +64,6 @@ class FourSquareAPI {
     
     
     func searchVenuesWithQuery (completion: (([Venue]) -> Void)!, query: String, ll: String) {
-        println("searchVenuesWithQuery active")
         let urlQuery = query.stringByReplacingOccurrencesOfString(" ", withString: "_")
         var urlString = "https://api.foursquare.com/v2/venues/search?ll=" + ll + "&categoryId=4d4b7105d754a06374d81259,4d4b7105d754a06376d81259&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=20150728&query=" + urlQuery
         
@@ -92,15 +76,12 @@ class FourSquareAPI {
             if err != nil {
                 println(err.localizedDescription)
             } else {
-                //println("error is nil")
                 var err: NSError?
                 if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err){
                     var venues = [Venue]()
                     if let dict = jsonObject as? [String: AnyObject] {
                         if let response = dict["response"] as? [String: AnyObject] {
-                            //println(response)
                             if let venuesData = response["venues"] as? [[String: AnyObject]] {
-                                //println(venuesData)
                                 for item in venuesData {
                                     let venue = Venue(data: item)
                                     venues.append(venue)
