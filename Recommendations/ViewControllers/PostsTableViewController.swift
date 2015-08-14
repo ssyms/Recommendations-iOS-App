@@ -75,6 +75,9 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         share2Button.title = nil
         shareButton.enabled = true
         shareButton.title = "Share Your Favorites Bites!"
+        
+        cancelEmaiList.enabled = false
+        cancelEmaiList.title = nil
     }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
@@ -91,7 +94,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
             var typeString = item.type
             println(item.venue)
             println(item.type)
-            var completeVenue = "<h2>" + venueString + "</h2> " + typeString + " • " + formatLoc
+            var completeVenue = "<font size=4><b>" + venueString + "</b></font><br><font size=2>" + typeString + " • " + formatLoc + "</font><br><br>"
             emailString = emailString + completeVenue
         }
         mailComposerVC.setMessageBody(emailString, isHTML: true)
@@ -117,8 +120,14 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
             case "Done":
                 posts = realm.objects(Post).sorted("venue", ascending: true)
                 
+                cancelEmaiList.enabled = false
+                cancelEmaiList.title = nil
+                
             default:
                 posts = realm.objects(Post).sorted("venue", ascending: true)
+                
+                cancelEmaiList.enabled = false
+                cancelEmaiList.title = nil
             }
         }
     }

@@ -18,15 +18,17 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var priceTierLabel: UILabel!
     
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let logo = UIImage(named: "logo2.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
+        shareButton.title = "Share"
+        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Marker Felt", size: 20)!], forState: UIControlState.Normal)
         displayPost(post)
     }
     
@@ -36,8 +38,6 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
             displayPost(post)
         }
     }
-    
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     
     

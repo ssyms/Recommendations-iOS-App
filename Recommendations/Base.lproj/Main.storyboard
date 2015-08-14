@@ -303,16 +303,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="db4-pq-CjO">
-                                <rect key="frame" x="0.0" y="140" width="600" height="224"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="db4-pq-CjO">
+                                <rect key="frame" x="0.0" y="64" width="600" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="315" id="3gW-uQ-Owt"/>
+                                    <constraint firstAttribute="width" constant="600" id="7WO-zm-OB4"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="n2z-Ii-T9i" firstAttribute="top" secondItem="9DG-IQ-adJ" secondAttribute="bottom" constant="5" id="14F-Jm-W9w"/>
+                            <constraint firstAttribute="trailing" secondItem="db4-pq-CjO" secondAttribute="trailing" id="1u5-cP-8rl"/>
                             <constraint firstItem="e23-cu-zbE" firstAttribute="top" secondItem="zf8-zt-u3w" secondAttribute="bottom" constant="5" id="CGE-uC-SDo"/>
                             <constraint firstItem="e23-cu-zbE" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leading" id="E6d-qv-Sv0"/>
                             <constraint firstItem="N6y-M8-txX" firstAttribute="top" secondItem="e23-cu-zbE" secondAttribute="bottom" id="EJn-4N-3QS"/>
+                            <constraint firstItem="db4-pq-CjO" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leading" id="Jjb-yO-XK4"/>
                             <constraint firstItem="e23-cu-zbE" firstAttribute="top" secondItem="58L-V9-w4r" secondAttribute="bottom" constant="5" id="ONR-58-TLY"/>
                             <constraint firstAttribute="trailing" secondItem="e23-cu-zbE" secondAttribute="trailing" id="Osi-Fb-VeX"/>
                             <constraint firstItem="zf8-zt-u3w" firstAttribute="leading" secondItem="58L-V9-w4r" secondAttribute="trailing" constant="3" id="WMH-rW-72U"/>
@@ -321,6 +327,7 @@
                             <constraint firstItem="n2z-Ii-T9i" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="2" id="hMa-87-4LM"/>
                             <constraint firstItem="58L-V9-w4r" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="2" id="k0c-zE-tBc"/>
                             <constraint firstItem="w7r-g3-jhJ" firstAttribute="leading" secondItem="OTP-VF-dgf" secondAttribute="leadingMargin" constant="2" id="khY-ou-tKk"/>
+                            <constraint firstItem="db4-pq-CjO" firstAttribute="top" secondItem="xk7-w2-hcP" secondAttribute="bottom" id="ovR-Wj-5w2"/>
                             <constraint firstItem="58L-V9-w4r" firstAttribute="top" secondItem="n2z-Ii-T9i" secondAttribute="bottom" constant="5" id="wcx-TZ-rSn"/>
                             <constraint firstItem="9DG-IQ-adJ" firstAttribute="top" secondItem="w7r-g3-jhJ" secondAttribute="bottom" constant="5" id="wrM-mi-XFY"/>
                         </constraints>
@@ -329,7 +336,7 @@
                         <outlet property="addressLabel" destination="9DG-IQ-adJ" id="oRi-LE-q9t"/>
                         <outlet property="countryLabel" destination="n2z-Ii-T9i" id="7Xf-A0-7X7"/>
                         <outlet property="priceTierLabel" destination="58L-V9-w4r" id="nTq-JO-uPG"/>
-                        <outlet property="shareButton" destination="o4k-ak-fC6" id="Lje-Ba-aV6"/>
+                        <outlet property="shareButton" destination="o4k-ak-fC6" id="Z1b-oM-6wH"/>
                         <outlet property="typeLabel" destination="zf8-zt-u3w" id="mn0-v8-C9k"/>
                         <outlet property="venueImage" destination="db4-pq-CjO" id="bBK-Dk-Jzs"/>
                         <outlet property="venueLabel" destination="w7r-g3-jhJ" id="54s-uR-TBN"/>

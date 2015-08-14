@@ -261,6 +261,7 @@
 				TargetAttributes = {
 					7B046BD31B68231000CC716A = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 6DQ27LZX5A;
 					};
 					7B046BE81B68231000CC716A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -544,6 +545,8 @@
 			baseConfigurationReference = 82B0AAAC475A4B8E97ECAF3D /* Pods-Recommendations.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/saradasymonds/Downloads/MakeSchoolNotes,
@@ -552,6 +555,7 @@
 				INFOPLIST_FILE = Recommendations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Recommendations/Recommendations-Bridging-Header.h";
 			};
 			name = Debug;
@@ -561,6 +565,8 @@
 			baseConfigurationReference = BB1C962E4D9B8724E532658F /* Pods-Recommendations.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/saradasymonds/Downloads/MakeSchoolNotes,
@@ -569,6 +575,7 @@
 				INFOPLIST_FILE = Recommendations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Recommendations/Recommendations-Bridging-Header.h";
 			};
 			name = Release;
