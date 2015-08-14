@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         UINavigationBar.appearance().translucent = false
-        UIToolbar.appearance().barTintColor = UIColor(red: 79/255.0, green: 209/255.0, blue: 102/255.0, alpha: 1.0)
+        UIToolbar.appearance().barTintColor = UIColor(red: 11/255.0, green: 128/255.0, blue: 64/255.0, alpha: 1.0)
         UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
         /*UIApplication.sharedApplication().statusBarHidden = false
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent*/

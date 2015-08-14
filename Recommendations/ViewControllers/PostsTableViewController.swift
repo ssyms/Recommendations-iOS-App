@@ -15,7 +15,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     @IBOutlet var myTableView: UITableView!
     
     var selectedPost: Post?
-    var emailPost: Post?
+    var emailList = [Post]()
     var posts: Results<Post>! {
         didSet {
             // Whenever posts update, update the table view
@@ -25,25 +25,48 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
+    @IBOutlet weak var share2Button: UIBarButtonItem!
+    
     @IBAction func shareButtonTapped(sender: AnyObject) {
         println("share button tapped")
-        //        let mailComposeViewController = configuredMailComposeViewController()
-        //        if MFMailComposeViewController.canSendMail() {
-        //            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
-        //        } else {
-        //            self.showSendMailErrorAlert()
-        //        }
+        shareButton.enabled = false
+        shareButton.title = nil
+        share2Button.enabled = true
+        share2Button.title = "Email List"
         
         tableView.editing = !tableView.editing
     }
+    @IBAction func share2ButtonTapped(sender: AnyObject) {
+        shareButton.enabled = true
+        shareButton.title = "Share Your Favorites Bites!"
+        share2Button.enabled = false
+        share2Button.title = nil
+        tableView.editing = false
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+        self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            } else {
+                    self.showSendMailErrorAlert()
+            }
+    }
+    
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
-        mailComposerVC.setToRecipients(["someone@somewhere.com"])
-        mailComposerVC.setSubject("Check out these awesome places!")
-        let newString = "an example string"
-        mailComposerVC.setMessageBody(newString, isHTML: false)
+        mailComposerVC.setToRecipients([""])
+        mailComposerVC.setSubject("Try some bites!")
+        var emailString = "<h4><font face='tahoma'>Check out this awesome place!</font></h4>"
+        for venue in emailList {
+            let venueString = venue.venue
+            let addressString = venue.address
+            let locationString = venue.location
+            let formatLoc = addressString + ", " + locationString
+            let typeString = venue.price
+            let completeVenue = "<h2>" + venueString + "</h2> " + typeString + " • " + formatLoc
+            emailString = emailString + completeVenue
+        }
+        mailComposerVC.setMessageBody(emailString, isHTML: true)
         
         return mailComposerVC
     }
@@ -91,6 +114,10 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         let logo = UIImage(named: "logo2.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
+        
+        shareButton.title = "Share Your Favorites Bites!"
+        share2Button.enabled = false
+        share2Button.title = nil
         tableView.dataSource = self
         tableView.delegate = self
         let realm = Realm()
@@ -219,7 +246,16 @@ extension PostsTableViewController: UITableViewDataSource {
         
         if let indexPaths = tableView.indexPathsForSelectedRows() as? [NSIndexPath] {
             for indexPath in indexPaths {
-                println(indexPath)
+                
+                let row = indexPath.row
+                let post = posts[row] as Post
+                let emailPost = Post()
+                emailPost.venue = post.venue
+                emailPost.location = post.location
+                emailPost.address = post.address
+                emailPost.type = post.type
+                emailList.append(emailPost)
+                
             }
         }
     }
