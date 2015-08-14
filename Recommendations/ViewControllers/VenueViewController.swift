@@ -77,12 +77,11 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     
     func displayPost(post: Post?) {
-        if let post = post, venueLabel = venueLabel, typeLabel = typeLabel, addressLabel = addressLabel, countryLabel = countryLabel, ratingLabel = ratingLabel, priceTierLabel = priceTierLabel, venueImage = venueImage {
+        if let post = post, venueLabel = venueLabel, typeLabel = typeLabel, addressLabel = addressLabel, countryLabel = countryLabel, priceTierLabel = priceTierLabel, venueImage = venueImage {
             self.venueLabel.text = post.venue
             self.countryLabel.text = post.location
             self.priceTierLabel.text = post.price
             self.typeLabel.text = post.type
-            self.ratingLabel.text = post.rating
             self.addressLabel.text = post.address
             let urlString = post.imageUrl
             if let url = NSURL(string: urlString) {

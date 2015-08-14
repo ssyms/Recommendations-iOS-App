@@ -133,6 +133,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
             if let cell = sender as? PostTableViewCell {
                 let venueViewController = segue.destinationViewController as! VenueViewController
                 venueViewController.post = cell.post
+                println("cell")
             }
         }
     }
