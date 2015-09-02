@@ -32,7 +32,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         shareButton.enabled = false
         shareButton.title = nil
         share2Button.enabled = true
-        share2Button.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Marker Felt", size: 20)!], forState: UIControlState.Normal)
+        share2Button.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "TrebuchetMS-Bold", size: 23)!], forState: UIControlState.Normal)
         cancelEmaiList.enabled = true
         cancelEmaiList.title = "Cancel"
         share2Button.title = "Email List"
@@ -41,7 +41,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
     }
     @IBAction func share2ButtonTapped(sender: AnyObject) {
         shareButton.enabled = true
-        shareButton.title = "Share Your Favorites Bites!"
+        shareButton.title = "Share"
         share2Button.enabled = false
         share2Button.title = nil
         if let indexPaths = tableView.indexPathsForSelectedRows() as? [NSIndexPath] {
@@ -74,7 +74,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         share2Button.enabled = false
         share2Button.title = nil
         shareButton.enabled = true
-        shareButton.title = "Share Your Favorites Bites!"
+        shareButton.title = "SHARE"
         
         cancelEmaiList.enabled = false
         cancelEmaiList.title = nil
@@ -139,8 +139,8 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
-        shareButton.title = "Share Your Favorites Bites!"
-        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Marker Felt", size: 20)!], forState: UIControlState.Normal)
+        shareButton.title = "Share"
+        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "TrebuchetMS-Bold", size: 23)!], forState: UIControlState.Normal)
         share2Button.enabled = false
         share2Button.title = nil
         cancelEmaiList.enabled = false
@@ -173,6 +173,14 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
                 println("cell")
             }
         }
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.Portrait.rawValue
     }
     
     // MARK: - Table view data source

@@ -191,6 +191,14 @@ extension SearchTableViewController: UISearchBarDelegate {
                 }
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.Portrait.rawValue
+    }
+    
 }
 
 extension SearchTableViewController: SearchTableViewCellDelegate {

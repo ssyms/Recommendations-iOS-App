@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Recommendations/ViewControllers/SearchTableViewController.swift"
-            timestampString = "461264948.932146"
+            timestampString = "462921335.774883"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "SearchTableViewController"
             landmarkType = "3">
          </BreakpointContent>

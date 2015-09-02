@@ -28,7 +28,7 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         shareButton.title = "Share"
-        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Marker Felt", size: 20)!], forState: UIControlState.Normal)
+        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "TrebuchetMS-Bold", size: 20)!], forState: UIControlState.Normal)
         displayPost(post)
     }
     
@@ -94,5 +94,12 @@ class VenueViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.Portrait.rawValue
+    }
     
 }
