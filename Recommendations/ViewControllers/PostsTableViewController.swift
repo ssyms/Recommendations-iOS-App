@@ -278,6 +278,7 @@ extension PostsTableViewController: UITableViewDataSource {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         if tableView.editing == false {
             self.performSegueWithIdentifier("ShowVenueDetails", sender: cell)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         var count = 0
     }
