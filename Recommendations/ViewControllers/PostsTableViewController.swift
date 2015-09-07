@@ -74,7 +74,7 @@ class PostsTableViewController: UITableViewController, MFMailComposeViewControll
         share2Button.enabled = false
         share2Button.title = nil
         shareButton.enabled = true
-        shareButton.title = "SHARE"
+        shareButton.title = "Share"
         
         cancelEmaiList.enabled = false
         cancelEmaiList.title = nil

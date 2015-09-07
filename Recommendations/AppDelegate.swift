@@ -24,8 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /*UIApplication.sharedApplication().statusBarHidden = false
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent*/
         var addStatusBar = UIView()
-        addStatusBar.frame = CGRectMake(0, 0, 320, 20);
-        addStatusBar.backgroundColor = UIColor.whiteColor()
         self.window?.rootViewController?.view .addSubview(addStatusBar)
         //UINavigationBar.appearance().setBackgroundImage(UIImage(named: "logo")!.resizableImageWithCapInsets(UIEdgeInsetsMake(0, 0, 0, 0)), forBarMetrics: .Default)
         

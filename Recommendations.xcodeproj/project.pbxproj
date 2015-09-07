@@ -554,9 +554,10 @@
 				);
 				INFOPLIST_FILE = Recommendations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Recommendations;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Recommendations/Recommendations-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -574,9 +575,10 @@
 				);
 				INFOPLIST_FILE = Recommendations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Recommendations;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Recommendations/Recommendations-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -595,7 +597,7 @@
 				);
 				INFOPLIST_FILE = RecommendationsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RecommendationsTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Recommendations.app/Recommendations";
 			};
 			name = Debug;
@@ -611,7 +613,7 @@
 				);
 				INFOPLIST_FILE = RecommendationsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RecommendationsTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Recommendations.app/Recommendations";
 			};
 			name = Release;
